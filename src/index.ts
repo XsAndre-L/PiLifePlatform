@@ -240,47 +240,72 @@ new piLifeApp();
 
 
 // Location
-// let lat = 0;
+let geowatch: number;
 // let long = 0;
 let accuracy = 0;
 let head = 0;
 
+
+
 var errLocation = function (err: any) {
     let text = document.getElementById("text");
     if (text) { text.innerHTML = err.message; }
+
+    switch (err.code) {
+        case err.PERMISSION_DENIED:
+
+            console.error("User denied the request for Geolocation.");
+            break;
+
+        case err.POSITION_UNAVAILABLE:
+
+            console.error("Location information is unavailable.");
+            break;
+
+        case err.TIMEOUT:
+
+            console.error("The request to get user location timed out.");
+            break;
+
+        case err.UNKNOWN_ERROR:
+
+            console.error("An unknown error occurred.");
+            break;
+    }
 }
 
 function GetGeoLocation() {
-    if (!navigator.geolocation) {
+    if (!geowatch) {
+        if ("geolocation" in navigator && "watchPosition" in navigator.geolocation) {
+            geowatch = navigator.geolocation.watchPosition((position) => {
+                console.log("Getting Geolocation ...");
+                //console.log(position.coords.latitude)
+
+                let lat = position.coords.latitude;
+                let long = position.coords.longitude;
+                accuracy = position.coords.accuracy;
+                head = Number(position.coords.heading);
+                console.log(`latitude : ${lat}  longitude : ${long}`);
+
+                let text = document.getElementById("text");
+                if (text) { text.innerHTML = `LAT : ${lat}  LONG : ${long} ACCURACY : ${accuracy} HEAD : ${head}`; }
+                
+                //-33.3692478,18.3920107
+            }, errLocation, {
+                enableHighAccuracy: true,
+                maximumAge: 0, 
+                timeout: 15000
+
+            });
+        }
+    } else {
         let text = document.getElementById("text");
         if (text) { text.innerHTML = `not supported`; }
-    } else {
-
-        navigator.geolocation.getCurrentPosition((position) => {
-            console.log("Getting Geolocation ...");
-            //console.log(position.coords.latitude)
-
-            //if (lat != position.coords.latitude || long != position.coords.longitude) {
-            let lat = position.coords.latitude;
-            let long = position.coords.longitude;
-            accuracy = position.coords.accuracy;
-            head = Number(position.coords.heading);
-            console.log(`latitude : ${lat}  longitude : ${long}`);
-
-            let text = document.getElementById("text");
-            if (text) { text.innerHTML = `LAT : ${lat}  LONG : ${long} ACCURACY : ${accuracy} HEAD : ${head}`; }
-            //}
-            //-33.3692478,18.3920107
-            // doSomething(position.coords.latitude, position.coords.longitude);
-        }, errLocation, {
-            enableHighAccuracy: true,
-            maximumAge: 4000, // should be default, just in case
-            timeout: 4000
-            
-        });//, { enableHighAccuracy: true, maximumAge: 10000 }
-
     }
 }
-setInterval(GetGeoLocation, 10000);
+
+GetGeoLocation();
+
+//setInterval(GetGeoLocation, 10000);
 // GetGeoLocation();
 //---
