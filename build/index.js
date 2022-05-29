@@ -73,7 +73,7 @@ class piLifeApp {
             for (let index = 0; index < Meshes.length; index++) {
                 BABYLON.SceneLoader.ImportMesh(null, 
                 //"../assets/",//Local
-                "https://xsandre-l.github.io/pilifeplatform/assets/", //non-Local
+                "https://xsandre-l.github.io/PiLifePlatform/assets/", //non-Local
                 P_meshName[index], scene, function (meshes, materials) {
                     var _a;
                     scene.createDefaultCameraOrLight(true);
