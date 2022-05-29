@@ -1,0 +1,8 @@
+{
+    "liveServer.settings.https": {
+        "enable": true, //set it true to enable the feature.
+        "cert": "D:\\DEV\\Profession\\Babylonstoren\\Resort Platform Project\\PiLife Resort Platform\\cert\\fullchain.pem", //full path
+        "key": "D:\\DEV\\Profession\\Babylonstoren\\Resort Platform Project\\PiLife Resort Platform\\cert\\cert-key.pem", //full path
+        "passphrase": "12345"
+    },
+}

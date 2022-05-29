@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" style="background-color: darkgray;">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="origin-trail" content="AsXEebnROWe7SmBjTmMMecg2GAXl2JiyqQD260VOBXBgHw/bcA1MbkHGo9v2FKwoUV+FaOCh2ve/XQDN0+kYYQsAAABJeyJvcmlnaW4iOiJodHRwOi8vMTI3LjAuMC4xOjU1MDAiLCJmZWF0dXJlIjoiV2ViR1BVIiwiZXhwaXJ5IjoxNjYzNzE4Mzk5fQ==">
+        <title>Document</title>
+        
+        <!-- Babylon.js -->
+        
+        <!--script src="https://xsandre-l.github.io/Test/blob/master/node_modules/babylonjs/babylon.js"></script-->
+        <!--script> src="https://github.com/XsAndre-L/Test/blob/node_modules/babylonjs/babylon.js"</script-->
+        <!--script src="https://xsandre-l.github.io/Test/blob/master/node_modules/babylonjs-loaders/babylonjs.loaders.js"></script-->
+        
+        
+        <script src="https://cdn.babylonjs.com/babylon.js" ></script>
+        <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+        
+        
+        <style>
+            html, body {
+                overflow: hidden;
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+
+            #renderCanvas {
+                /* border-radius: 1em; */
+                width: 100%;
+                height: 100%;
+                /* position: absolute; */
+                left:0;
+                top:0;
+                touch-action: none;
+            }
+            
+            p{
+                position: absolute;
+            }
+
+        </style>
+    </head>
+<body>
+    <p id="text"> DISPLAY </p>
+    <canvas id="renderCanvas"></canvas>
+   
+    <!-- <script>var exports = {};</script> -->
+    <script type="module" src="./build/index.js"></script>
+        
+
+</body>
+</html>
+
