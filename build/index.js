@@ -71,8 +71,9 @@ class piLifeApp {
             // Our built-in 'ground' shape. Params: name, options, scene
             //const ground = BABYLON.MeshBuilder.CreateGround("ground", { width: 6, height: 6 }, myScene);
             for (let index = 0; index < Meshes.length; index++) {
-                BABYLON.SceneLoader.ImportMesh(null, "../assets/", //Local
-                //"https://xsandre-l.github.io/Assets/Models/",//non-Local
+                BABYLON.SceneLoader.ImportMesh(null, 
+                //"../assets/",//Local
+                "https://xsandre-l.github.io/pilifeplatform/assets/", //non-Local
                 P_meshName[index], scene, function (meshes, materials) {
                     var _a;
                     scene.createDefaultCameraOrLight(true);
