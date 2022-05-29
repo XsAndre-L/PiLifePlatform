@@ -90,7 +90,7 @@ class piLifeApp {
                 BABYLON.SceneLoader.ImportMesh(
                     null,
                     //"../assets/",//Local
-                    "https://github.com/XsAndre-L/PiLifePlatform/blob/master/assets/",//non-Local
+                    "https://xsandre-l.github.io/xsandre-l.com/assets/",//non-Local
                     P_meshName[index],
                     scene,
                     function (
