@@ -3,8 +3,206 @@
 //import { Engine } from "babylonjs";
 //import { Scene } from 'babylonjs';
 
-
+//import { PolygonFence } from "./coordinate_translation";
 // import * as BABYLON from '@babylonjs/core';
+
+
+
+/////////////////////
+
+
+const LB = {
+    x: -33.826447,
+    y: 18.924780,
+    nx: -4500,
+    ny: -2287
+}
+const RB = {
+    x: -33.825517,
+    y: 18.923640,
+    nx: -4500,
+    ny: 2287
+}
+const LF = {
+    x: -33.824221,
+    y: 18.928252,
+    nx: 4500,
+    ny: -2287
+}
+const RF = {
+    x: -33.823227,
+    y: 18.927184,
+    nx: 4500,
+    ny: 2287
+}
+
+const LB_tr = {
+    tX: LB.nx / LB.x,
+    tY: LB.nx / LB.x
+}
+const RB_tr = {
+    tX: RB.nx / RB.x,
+    tY: RB.ny / RB.y
+}
+const LF_tr = {
+    tX: LF.nx / LF.x,
+    tY: LF.ny / LF.y
+}
+const RF_tr = {
+    tX: RF.nx / RF.x,
+    tY: RF.ny / RF.y
+}
+
+let CURR_X: number;
+let CURR_Y: number;
+
+export function translateCoordinates(lat: number, long: number) {
+    let x: number = 0;
+    let y: number = 0;
+
+    const dist_LB_RB = getDistance(LB.x, LB.y, RB.x, RB.y);
+    const dist_LB_RB_N = getDistance(LB.nx, LB.ny, RB.nx, RB.ny);
+
+    const side1 = dist_LB_RB_N / dist_LB_RB;
+
+    const dist_LB_LF = getDistance(LB.x, LB.y, LF.x, LF.y);
+    const dist_LB_LF_N = getDistance(LB.nx, LB.ny, LF.nx, LF.ny);
+
+    const side2 = dist_LB_LF_N / dist_LB_LF;
+
+
+    x = lat * side1;
+    y = long * side2;
+
+    //  get distance between curr and2 points
+    const curr_point1 = getDistance(lat, long, LB.x, LB.y);
+    const curr_point2 = getDistance(lat, long, RB.x, RB.y);
+
+    const tryDist1 = curr_point1 * side1;
+    const tryDist2 = curr_point2 * side1;
+
+
+
+    //const dist_LB_Curr = getDistance()
+
+    // difference between current lat/long and LB
+
+    // const persentOfTotal = { // 
+    //     PercX: (diff_LB_Curr.diff_x * 100)/diff_LB_RB.diff_x,
+    //     PercY: (diff_LB_Curr.diff_y * 100)/diff_LB_RB.diff_y 
+    // }
+    const PointTr = [LB_tr, RB_tr, LF_tr, RF_tr];
+
+
+    // x += lat*LB_tr.tX;
+    // y += long*LB_tr.tY;
+
+    // PointTr.forEach(point => {
+    //     x += lat*point.tX;
+    //     y += long*point.tY;
+    // });
+
+    // x /= 4;
+    // y /= 4;
+    const points = calculate_third_point(LB.x, LB.y, RB.x, RB.y,dist_LB_RB, tryDist1, tryDist2, false);
+
+
+    console.log(x + '  ' + y)
+
+    CURR_X = points.Px;
+    CURR_Y = points.Py;
+}
+
+function calculate_third_point(Ax: number, Ay: number, Cx: number, Cy: number, b: number, c: number, A: any, alt: any) {
+
+    var Bx;
+    var By;
+    alt = typeof alt === 'undefined' ? false : alt;
+
+    //unit vector
+    let uACx = (Cx - Ax) / b;
+    let uACy = (Cy - Ay) / b;
+
+    if(alt) {
+
+        //rotated vector
+        let uABx = uACx * Math.cos(toRadians(A)) - uACy * Math.sin(toRadians(A));
+        let uABy = uACx * Math.sin(toRadians(A)) + uACy * Math.cos(toRadians(A));
+
+        //B position uses length of edge
+        Bx = Ax + c * uABx;
+        By = Ay + c * uABy;
+    }
+    else {
+        //vector rotated into another direction
+        let uABx = uACx * Math.cos(toRadians(A)) + uACy * Math.sin(toRadians(A));
+        let uABy = - uACx * Math.sin(toRadians(A)) + uACy * Math.cos(toRadians(A));
+
+        //second possible position
+        Bx = Ax + c * uABx;
+        By = Ay + c * uABy;
+    }
+
+    return {Px: Bx, Py: By};
+}
+/**
+ * Convert degrees to radians.
+ *
+ * @param angle
+ * @returns {number}
+ */
+ function toRadians (angle: number) {
+    return angle * (Math.PI / 180);
+}
+
+function getDistance(x1: number, y1: number, x2: number, y2: number): number {
+    let y = x2 - x1;
+    let x = y2 - y1;
+
+    return Math.sqrt(x * x + y * y);
+}
+
+
+type point = { X: number, Y: number };
+class PolygonFence {
+    PointList: point[] = [
+        { X: -33.826447, Y: 18.924780 },
+        { X: -33.825517, Y: 18.923640 },
+        { X: -33.824221, Y: 18.928252 },
+        { X: -33.823227, Y: 18.927184 }];
+
+    // PolygonFence(points: point[])
+    // {
+    //     foreach (Point p in points)
+    //     {
+    //         this.PointList.Add(p);
+    //     }
+    // }
+
+    Count() {
+        return this.PointList.length;
+    }
+
+    IsWithinFence(p: { X: number, Y: number }): boolean {
+        const sides = this.Count();
+        let j = sides - 1;
+        let pointStatus: boolean = false;
+        for (let index = 0; index < sides; index++) {
+            const element = this.PointList[index];
+            if (this.PointList[index].Y < p.Y && this.PointList[j].Y >= p.Y || this.PointList[j].Y < p.Y && this.PointList[index].Y >= p.Y) {
+                if (this.PointList[index].X + (p.Y - this.PointList[index].Y) / (this.PointList[j].Y - this.PointList[index].Y) * (this.PointList[j].X - this.PointList[index].X) < p.X) {
+                    pointStatus = !pointStatus;
+                }
+            }
+            j = index;
+        }
+
+        return pointStatus;
+    }
+}
+
+//////////////////////
+
 
 
 class piLifeApp {
@@ -54,8 +252,18 @@ class piLifeApp {
 
         var createScene = function (myScene: BABYLON.Scene, Canvas: any) {
 
-            // Creat4 Objects
+            // Create Objects
             point = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 30, segments: 32 }, myScene);
+
+            const leftFront = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 30, segments: 32 }, myScene);
+            const rightFront = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 30, segments: 32 }, myScene);
+            const leftBack = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 30, segments: 32 }, myScene);
+            const rightBack = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 30, segments: 32 }, myScene);
+
+            leftFront.position = new BABYLON.Vector3(4500, 0, -2287);
+            rightFront.position = new BABYLON.Vector3(4500, 0, 2287);
+            leftBack.position = new BABYLON.Vector3(-4500, 0, -2287);
+            rightBack.position = new BABYLON.Vector3(-4500, 0, 2287);
 
             // camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5000, -10), myScene);
             camera = new BABYLON.FollowCamera("followCam", new BABYLON.Vector3(8000, 4000, 0), myScene, point);
@@ -66,6 +274,8 @@ class piLifeApp {
             camera.rotationOffset = 0;
             camera.noRotationConstraint = true;
             camera.radius = 1000;
+
+            //133.03200303596768528483053511355
 
             // This attaches the camera to the canvas
             // camera.attachControl(Canvas, true);
@@ -115,8 +325,8 @@ class piLifeApp {
             //----
 
             function RunLoop() {
-                point.translate(new BABYLON.Vector3(1, 0, 0), BABYLON.Space.WORLD);
-
+                //point.translate(new BABYLON.Vector3(1, 0, 0), BABYLON.Space.WORLD);
+                point.position = new BABYLON.Vector3(CURR_X, 0, CURR_Y);
             }
             setInterval(RunLoop, 16);
 
@@ -154,8 +364,6 @@ let geowatch: number;
 let accuracy = 0;
 let head = 0;
 
-
-
 var errLocation = function (err: any) {
     let text = document.getElementById("text");
     if (text) { text.innerHTML = err.message; }
@@ -182,7 +390,7 @@ var errLocation = function (err: any) {
             break;
     }
 }
-
+const PF = new PolygonFence();
 function GetGeoLocation() {
     if (!geowatch) {
         if ("geolocation" in navigator && "watchPosition" in navigator.geolocation) {
@@ -190,7 +398,7 @@ function GetGeoLocation() {
                 console.log("Getting Geolocation ...");
                 //console.log(position.coords.latitude)
 
-                let lat = position.coords.latitude;
+                let lat: number = position.coords.latitude;
                 let long = position.coords.longitude;
                 accuracy = position.coords.accuracy;
                 head = Number(position.coords.heading);
@@ -198,6 +406,15 @@ function GetGeoLocation() {
 
                 let text = document.getElementById("text");
                 if (text) { text.innerHTML = `LAT : ${lat}  LONG : ${long}  ACCURACY : ${accuracy} HEAD : ${head}`; }
+
+
+                // if then Translate Point into coordinates
+                console.log(PF.IsWithinFence({ X: lat, Y: long }));
+                if (PF.IsWithinFence({ X: lat, Y: long })) {
+                    translateCoordinates(lat, long);
+                    if (text) { text.innerHTML = `LAT : ${lat}  LONG : ${long}  ACCURACY : ${accuracy} HEAD : ${head} | YOU ARE IN THE GARDEN`; }
+                }
+
 
                 //-33.3692478,18.3920107
                 //-33.825517, 18.923640
@@ -223,3 +440,4 @@ function stopWatch() {
 //setInterval(GetGeoLocation, 10000);
 // GetGeoLocation();
 //---
+
