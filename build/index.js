@@ -93,6 +93,7 @@ export function translateCoordinates(lat, long) {
     // x /= 4;
     // y /= 4;
     const ang = (-2 * dist_LB_RB_N * tryDist2) / (tryDist2 * tryDist2 - ((dist_LB_RB_N * dist_LB_RB_N) + (tryDist2 * tryDist2)));
+    console.log(ang);
     const points = calculate_third_point(LB.nx, LB.ny, RB.nx, RB.ny, dist_LB_RB_N, tryDist2, Math.acos(ang), false);
     // C^2 = b^2 + c^2 -2(b)(c)cosA
     // cos( (-2(b)(c)) / c^2 - (+b^2 + c^2)) = A
