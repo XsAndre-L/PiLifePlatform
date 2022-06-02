@@ -135,6 +135,7 @@ export function translateCoordinates(lat: number, long: number) {
  */
 function calculate_third_point(Ax: number, Ay: number, Cx: number, Cy: number, b: number, c: number, A: any, alt: any) {
 
+    console.log(Ax + ' ' + Ay + ' ' + Cx + ' ' + Cy + ' ' + b + ' ' + c + ' ' + A + ' ' + alt )
     var Bx;
     var By;
     alt = typeof alt === 'undefined' ? false : alt;

@@ -111,6 +111,7 @@ export function translateCoordinates(lat, long) {
  * @returns {{Bx: *, By: *}}
  */
 function calculate_third_point(Ax, Ay, Cx, Cy, b, c, A, alt) {
+    console.log(Ax + ' ' + Ay + ' ' + Cx + ' ' + Cy + ' ' + b + ' ' + c + ' ' + A + ' ' + alt);
     var Bx;
     var By;
     alt = typeof alt === 'undefined' ? false : alt;
