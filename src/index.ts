@@ -104,7 +104,7 @@ export function translateCoordinates(lat: number, long: number) {
 
     // x /= 4;
     // y /= 4;
-    const points = calculate_third_point(LB.x, LB.y, RB.x, RB.y,dist_LB_RB, tryDist1, tryDist2, false);
+    const points = calculate_third_point(LB.nx, LB.ny, RB.nx, RB.ny,dist_LB_RB, tryDist1, tryDist2, false);
 
 
     console.log(x + '  ' + y)
