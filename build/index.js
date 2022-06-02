@@ -61,42 +61,23 @@ export function translateCoordinates(lat, long) {
     const dist_LB_RB = getDistance(LB.x, LB.y, RB.x, RB.y);
     const dist_LB_RB_N = getDistance(LB.nx, LB.ny, RB.nx, RB.ny);
     console.log('dist1 - ' + dist_LB_RB_N);
-    const side1 = dist_LB_RB_N / dist_LB_RB;
-    console.log('Change ' + side1);
-    // const dist_LB_LF = getDistance(LB.x, LB.y, LF.x, LF.y);
-    // const dist_LB_LF_N = getDistance(LB.nx, LB.ny, LF.nx, LF.ny);
-    // const side2 = dist_LB_LF_N / dist_LB_LF;
-    // x = lat * side1;
-    // y = long * side2;
+    const side1Change = dist_LB_RB_N / dist_LB_RB;
+    console.log('Change ' + side1Change);
     //  get distance between curr and2 points
     const curr_point1 = getDistance(lat, long, LB.x, LB.y);
     const curr_point2 = getDistance(lat, long, RB.x, RB.y);
     console.log('old dist2 - ' + curr_point1);
     console.log('old dist3 - ' + curr_point2);
-    const tryDist1 = curr_point1 * side1;
-    const tryDist2 = curr_point2 * side1;
+    const tryDist1 = curr_point1 * side1Change;
+    const tryDist2 = curr_point2 * side1Change;
     console.log('new dist2 - ' + tryDist1);
     console.log('new dist2 - ' + tryDist2);
-    //const dist_LB_Curr = getDistance()
-    // difference between current lat/long and LB
-    // const persentOfTotal = { // 
-    //     PercX: (diff_LB_Curr.diff_x * 100)/diff_LB_RB.diff_x,
-    //     PercY: (diff_LB_Curr.diff_y * 100)/diff_LB_RB.diff_y 
-    // }
-    //const PointTr = [LB_tr, RB_tr, LF_tr, RF_tr];
-    // x += lat*LB_tr.tX;
-    // y += long*LB_tr.tY;
-    // PointTr.forEach(point => {
-    //     x += lat*point.tX;
-    //     y += long*point.tY;
-    // });
-    // x /= 4;
-    // y /= 4;
-    const ang = (-2 * dist_LB_RB_N * tryDist2) / (tryDist2 * tryDist2 - ((dist_LB_RB_N * dist_LB_RB_N) + (tryDist2 * tryDist2)));
-    console.log(ang);
-    const points = calculate_third_point(LB.nx, LB.ny, RB.nx, RB.ny, dist_LB_RB_N, tryDist2, Math.acos(ang), false);
+    //const ang = (-2*dist_LB_RB_N*tryDist2)/ (tryDist2*tryDist2 - ((dist_LB_RB_N * dist_LB_RB_N) + (tryDist2*tryDist2 )));
+    //console.log(ang);
+    const points = calculate_third_point(LB.nx, LB.ny, RB.nx, RB.ny, dist_LB_RB_N, tryDist2, Math.acos((Math.pow(dist_LB_RB_N, 2) + Math.pow(tryDist1, 2) - Math.pow(tryDist2, 2)) / (2 * dist_LB_RB_N * tryDist1)), false);
     // C^2 = b^2 + c^2 -2(b)(c)cosA
-    // cos( (-2(b)(c)) / c^2 - (+b^2 + c^2)) = A
+    // acos( (c^2 + b^2 - a^2) / (2(b)(c))) = A
+    // Math.acos((dist_LB_RB_N**2+tryDist1**2-tryDist2**2) / (2*dist_LB_RB_N*tryDist1))
     //Math.acos((-2*dist_LB_RB*tryDist2)/ (tryDist2*tryDist2 - ((dist_LB_RB * dist_LB_RB) + (tryDist2*tryDist2 ))))
     CURR_X = points.Px;
     CURR_Y = points.Py;
