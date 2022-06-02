@@ -83,7 +83,7 @@ export function translateCoordinates(lat: number, long: number) {
 
     //const ang = (-2*dist_LB_RB_N*tryDist2)/ (tryDist2*tryDist2 - ((dist_LB_RB_N * dist_LB_RB_N) + (tryDist2*tryDist2 )));
     //console.log(ang);
-    const points = calculate_third_point(LB.nx, LB.ny, RB.nx, RB.ny,dist_LB_RB_N, tryDist2, Math.acos((dist_LB_RB_N**2+tryDist1**2-tryDist2**2) / (2*dist_LB_RB_N*tryDist1)), false);
+    const points = calculate_third_point(LB.nx, LB.ny, RB.nx, RB.ny,dist_LB_RB_N, tryDist1, Math.acos((dist_LB_RB_N**2+tryDist1**2-tryDist2**2) / (2*dist_LB_RB_N*tryDist1)), false);
 
 
     // C^2 = b^2 + c^2 -2(b)(c)cosA
