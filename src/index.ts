@@ -62,8 +62,10 @@ export function translateCoordinates(lat: number, long: number) {
 
     const dist_LB_RB = getDistance(LB.x, LB.y, RB.x, RB.y);
     const dist_LB_RB_N = getDistance(LB.nx, LB.ny, RB.nx, RB.ny);
+    console.log('dist1 - ' + dist_LB_RB_N)
 
     const side1 = dist_LB_RB_N / dist_LB_RB;
+    console.log('Change ' + side1)
 
     // const dist_LB_LF = getDistance(LB.x, LB.y, LF.x, LF.y);
     // const dist_LB_LF_N = getDistance(LB.nx, LB.ny, LF.nx, LF.ny);
@@ -77,9 +79,14 @@ export function translateCoordinates(lat: number, long: number) {
     //  get distance between curr and2 points
     const curr_point1 = getDistance(lat, long, LB.x, LB.y);
     const curr_point2 = getDistance(lat, long, RB.x, RB.y);
+    console.log('old dist2 - ' + curr_point1);
+    console.log('old dist3 - ' + curr_point2);
 
     const tryDist1 = curr_point1 * side1;
     const tryDist2 = curr_point2 * side1;
+
+    console.log('new dist2 - ' + tryDist1)
+    console.log('new dist2 - ' + tryDist2)
 
 
 
@@ -399,7 +406,7 @@ function GetGeoLocation() {
                 //console.log(position.coords.latitude)
 
                 let lat: number = position.coords.latitude;
-                let long = position.coords.longitude;
+                let long: number = position.coords.longitude;
                 accuracy = position.coords.accuracy;
                 head = Number(position.coords.heading);
                 console.log(`latitude : ${lat}  longitude : ${long}`);
