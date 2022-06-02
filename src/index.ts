@@ -405,14 +405,16 @@ function GetGeoLocation() {
                 console.log(`latitude : ${lat}  longitude : ${long}`);
 
                 let text = document.getElementById("text");
-                if (text) { text.innerHTML = `LAT : ${lat}  LONG : ${long}  ACCURACY : ${accuracy} HEAD : ${head}`; }
-
+                
 
                 // if then Translate Point into coordinates
                 console.log(PF.IsWithinFence({ X: lat, Y: long }));
                 if (PF.IsWithinFence({ X: lat, Y: long })) {
                     translateCoordinates(lat, long);
                     if (text) { text.innerHTML = `LAT : ${lat}  LONG : ${long}  ACCURACY : ${accuracy} HEAD : ${head} | YOU ARE IN THE GARDEN`; }
+                }else{
+                    if (text) { text.innerHTML = `LAT : ${lat}  LONG : ${long}  ACCURACY : ${accuracy} HEAD : ${head} | NOT IN THE GARDEN !`; }
+
                 }
 
 
