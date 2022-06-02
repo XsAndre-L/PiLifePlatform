@@ -61,11 +61,11 @@ export function translateCoordinates(lat, long) {
     const dist_LB_RB = getDistance(LB.x, LB.y, RB.x, RB.y);
     const dist_LB_RB_N = getDistance(LB.nx, LB.ny, RB.nx, RB.ny);
     const side1 = dist_LB_RB_N / dist_LB_RB;
-    const dist_LB_LF = getDistance(LB.x, LB.y, LF.x, LF.y);
-    const dist_LB_LF_N = getDistance(LB.nx, LB.ny, LF.nx, LF.ny);
-    const side2 = dist_LB_LF_N / dist_LB_LF;
-    x = lat * side1;
-    y = long * side2;
+    // const dist_LB_LF = getDistance(LB.x, LB.y, LF.x, LF.y);
+    // const dist_LB_LF_N = getDistance(LB.nx, LB.ny, LF.nx, LF.ny);
+    // const side2 = dist_LB_LF_N / dist_LB_LF;
+    // x = lat * side1;
+    // y = long * side2;
     //  get distance between curr and2 points
     const curr_point1 = getDistance(lat, long, LB.x, LB.y);
     const curr_point2 = getDistance(lat, long, RB.x, RB.y);
@@ -77,7 +77,7 @@ export function translateCoordinates(lat, long) {
     //     PercX: (diff_LB_Curr.diff_x * 100)/diff_LB_RB.diff_x,
     //     PercY: (diff_LB_Curr.diff_y * 100)/diff_LB_RB.diff_y 
     // }
-    const PointTr = [LB_tr, RB_tr, LF_tr, RF_tr];
+    //const PointTr = [LB_tr, RB_tr, LF_tr, RF_tr];
     // x += lat*LB_tr.tX;
     // y += long*LB_tr.tY;
     // PointTr.forEach(point => {
@@ -87,9 +87,9 @@ export function translateCoordinates(lat, long) {
     // x /= 4;
     // y /= 4;
     const points = calculate_third_point(LB.nx, LB.ny, RB.nx, RB.ny, dist_LB_RB, tryDist1, tryDist2, false);
-    console.log(x + '  ' + y);
     CURR_X = points.Px;
     CURR_Y = points.Py;
+    console.log(CURR_X + '  ' + CURR_Y);
 }
 function calculate_third_point(Ax, Ay, Cx, Cy, b, c, A, alt) {
     var Bx;
@@ -316,15 +316,17 @@ function GetGeoLocation() {
                 head = Number(position.coords.heading);
                 console.log(`latitude : ${lat}  longitude : ${long}`);
                 let text = document.getElementById("text");
-                if (text) {
-                    text.innerHTML = `LAT : ${lat}  LONG : ${long}  ACCURACY : ${accuracy} HEAD : ${head}`;
-                }
                 // if then Translate Point into coordinates
                 console.log(PF.IsWithinFence({ X: lat, Y: long }));
                 if (PF.IsWithinFence({ X: lat, Y: long })) {
                     translateCoordinates(lat, long);
                     if (text) {
                         text.innerHTML = `LAT : ${lat}  LONG : ${long}  ACCURACY : ${accuracy} HEAD : ${head} | YOU ARE IN THE GARDEN`;
+                    }
+                }
+                else {
+                    if (text) {
+                        text.innerHTML = `LAT : ${lat}  LONG : ${long}  ACCURACY : ${accuracy} HEAD : ${head} | NOT IN THE GARDEN !`;
                     }
                 }
                 //-33.3692478,18.3920107
