@@ -65,14 +65,14 @@ export function translateCoordinates(lat: number, long: number) {
 
     const side1 = dist_LB_RB_N / dist_LB_RB;
 
-    const dist_LB_LF = getDistance(LB.x, LB.y, LF.x, LF.y);
-    const dist_LB_LF_N = getDistance(LB.nx, LB.ny, LF.nx, LF.ny);
+    // const dist_LB_LF = getDistance(LB.x, LB.y, LF.x, LF.y);
+    // const dist_LB_LF_N = getDistance(LB.nx, LB.ny, LF.nx, LF.ny);
 
-    const side2 = dist_LB_LF_N / dist_LB_LF;
+    // const side2 = dist_LB_LF_N / dist_LB_LF;
 
 
-    x = lat * side1;
-    y = long * side2;
+    // x = lat * side1;
+    // y = long * side2;
 
     //  get distance between curr and2 points
     const curr_point1 = getDistance(lat, long, LB.x, LB.y);
@@ -91,7 +91,7 @@ export function translateCoordinates(lat: number, long: number) {
     //     PercX: (diff_LB_Curr.diff_x * 100)/diff_LB_RB.diff_x,
     //     PercY: (diff_LB_Curr.diff_y * 100)/diff_LB_RB.diff_y 
     // }
-    const PointTr = [LB_tr, RB_tr, LF_tr, RF_tr];
+    //const PointTr = [LB_tr, RB_tr, LF_tr, RF_tr];
 
 
     // x += lat*LB_tr.tX;
@@ -107,10 +107,10 @@ export function translateCoordinates(lat: number, long: number) {
     const points = calculate_third_point(LB.nx, LB.ny, RB.nx, RB.ny,dist_LB_RB, tryDist1, tryDist2, false);
 
 
-    console.log(x + '  ' + y)
-
+    
     CURR_X = points.Px;
     CURR_Y = points.Py;
+    console.log(CURR_X + '  ' + CURR_Y)
 }
 
 function calculate_third_point(Ax: number, Ay: number, Cx: number, Cy: number, b: number, c: number, A: any, alt: any) {
