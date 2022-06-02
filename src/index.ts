@@ -111,7 +111,7 @@ export function translateCoordinates(lat: number, long: number) {
 
     // x /= 4;
     // y /= 4;
-    const points = calculate_third_point(LB.nx, LB.ny, RB.nx, RB.ny,dist_LB_RB, tryDist1, tryDist2, false);
+    const points = calculate_third_point(LB.nx, LB.ny, RB.nx, RB.ny,dist_LB_RB, tryDist1, Math.sin(tryDist1/tryDist2), false);
 
 
     
@@ -120,6 +120,19 @@ export function translateCoordinates(lat: number, long: number) {
     console.log(CURR_X + '  ' + CURR_Y)
 }
 
+/**
+ * Find the coordinates for the third point of a triangle.
+ *
+ * @param Ax - x coordinate value of first known point
+ * @param Ay - y coordinate value of first known point
+ * @param Cx - x coordinate value of second known point
+ * @param Cy - y coordinate value of second known point
+ * @param b - the length of side b
+ * @param c - the length of side c
+ * @param A - the angle of corner A
+ * @param alt - set to true to return the alternative solution.
+ * @returns {{Bx: *, By: *}}
+ */
 function calculate_third_point(Ax: number, Ay: number, Cx: number, Cy: number, b: number, c: number, A: any, alt: any) {
 
     var Bx;
