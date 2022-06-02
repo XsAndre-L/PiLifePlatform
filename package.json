@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx tsc",
-    "start": "npm run build && ts-node ./build/index.js"
+    "start": "npm run build && ts-node ./build/index.js",
+    "git": "git add --all && git commit && git push origin master"
   },
   "keywords": [],
   "author": "",

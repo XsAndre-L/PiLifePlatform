@@ -92,7 +92,7 @@ export function translateCoordinates(lat, long) {
     // });
     // x /= 4;
     // y /= 4;
-    const points = calculate_third_point(LB.nx, LB.ny, RB.nx, RB.ny, dist_LB_RB, tryDist1, Math.sin(tryDist1 / tryDist2), false);
+    const points = calculate_third_point(LB.nx, LB.ny, RB.nx, RB.ny, dist_LB_RB, tryDist1, Math.sin(tryDist1 / tryDist2) * 100, false);
     CURR_X = points.Px;
     CURR_Y = points.Py;
     console.log(CURR_X + '  ' + CURR_Y);
