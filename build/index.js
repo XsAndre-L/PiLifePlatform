@@ -37,22 +37,6 @@ const RF = {
     nx: 4500,
     ny: 2287
 };
-const LB_tr = {
-    tX: LB.nx / LB.x,
-    tY: LB.nx / LB.x
-};
-const RB_tr = {
-    tX: RB.nx / RB.x,
-    tY: RB.ny / RB.y
-};
-const LF_tr = {
-    tX: LF.nx / LF.x,
-    tY: LF.ny / LF.y
-};
-const RF_tr = {
-    tX: RF.nx / RF.x,
-    tY: RF.ny / RF.y
-};
 let CURR_X;
 let CURR_Y;
 export function translateCoordinates(lat, long) {
@@ -64,17 +48,17 @@ export function translateCoordinates(lat, long) {
     const side1Change = dist_LB_RB_N / dist_LB_RB;
     console.log('Change ' + side1Change);
     //  get distance between curr and2 points
-    const curr_point1 = getDistance(lat, long, LB.x, LB.y);
-    const curr_point2 = getDistance(lat, long, RB.x, RB.y);
-    console.log('old dist2 - ' + curr_point1);
-    console.log('old dist3 - ' + curr_point2);
-    const tryDist1 = curr_point1 * side1Change;
-    const tryDist2 = curr_point2 * side1Change;
+    const dist_P_LB = getDistance(lat, long, LB.x, LB.y);
+    const dist_P_RB = getDistance(lat, long, RB.x, RB.y);
+    console.log('old dist2 - ' + dist_P_LB);
+    console.log('old dist3 - ' + dist_P_RB);
+    const tryDist1 = dist_P_LB * side1Change;
+    const tryDist2 = dist_P_RB * side1Change;
     console.log('new dist2 - ' + tryDist1);
     console.log('new dist2 - ' + tryDist2);
     //const ang = (-2*dist_LB_RB_N*tryDist2)/ (tryDist2*tryDist2 - ((dist_LB_RB_N * dist_LB_RB_N) + (tryDist2*tryDist2 )));
     //console.log(ang);
-    const points = calculate_third_point(LB.nx, LB.ny, RB.nx, RB.ny, dist_LB_RB_N, tryDist1, Math.acos((Math.pow(dist_LB_RB_N, 2) + Math.pow(tryDist1, 2) - Math.pow(tryDist2, 2)) / (2 * dist_LB_RB_N * tryDist1)), false);
+    const points = calculate_third_point(LB.nx, LB.ny, RB.nx, RB.ny, dist_LB_RB_N, tryDist1, Math.acos(((Math.pow(dist_LB_RB_N, 2) + Math.pow(tryDist1, 2) - Math.pow(tryDist2, 2)) / (2 * dist_LB_RB_N * tryDist1))), false);
     // C^2 = b^2 + c^2 -2(b)(c)cosA
     // acos( (c^2 + b^2 - a^2) / (2(b)(c))) = A
     // Math.acos((dist_LB_RB_N**2+tryDist1**2-tryDist2**2) / (2*dist_LB_RB_N*tryDist1))
@@ -106,31 +90,31 @@ function calculate_third_point(Ax, Ay, Cx, Cy, b, c, A, alt) {
     let uACy = (Cy - Ay) / b;
     if (alt) {
         //rotated vector
-        let uABx = uACx * Math.cos(toRadians(A)) - uACy * Math.sin(toRadians(A));
-        let uABy = uACx * Math.sin(toRadians(A)) + uACy * Math.cos(toRadians(A));
+        let uABx = uACx * Math.cos(A) - uACy * Math.sin(A);
+        let uABy = uACx * Math.sin(A) + uACy * Math.cos(A);
         //B position uses length of edge
         Bx = Ax + c * uABx;
         By = Ay + c * uABy;
     }
     else {
         //vector rotated into another direction
-        let uABx = uACx * Math.cos(toRadians(A)) + uACy * Math.sin(toRadians(A));
-        let uABy = -uACx * Math.sin(toRadians(A)) + uACy * Math.cos(toRadians(A));
+        let uABx = uACx * Math.cos(A) + uACy * Math.sin(A);
+        let uABy = -uACx * Math.sin(A) + uACy * Math.cos(A);
         //second possible position
         Bx = Ax + c * uABx;
         By = Ay + c * uABy;
     }
     return { Px: Bx, Py: By };
 }
-/**
- * Convert degrees to radians.
- *
- * @param angle
- * @returns {number}
- */
-function toRadians(angle) {
-    return angle * (Math.PI / 180);
-}
+// /**
+//  * Convert degrees to radians.
+//  *
+//  * @param angle
+//  * @returns {number}
+//  */
+//  function toRadians (angle: number) {
+//     return angle * (Math.PI / 180);
+// }
 function getDistance(x1, y1, x2, y2) {
     let y = x2 - x1;
     let x = y2 - y1;
@@ -141,8 +125,8 @@ class PolygonFence {
         this.PointList = [
             { X: -33.826447, Y: 18.924780 },
             { X: -33.825517, Y: 18.923640 },
-            { X: -33.824221, Y: 18.928252 },
-            { X: -33.823227, Y: 18.927184 }
+            { X: -33.823227, Y: 18.927184 },
+            { X: -33.824221, Y: 18.928252 }
         ];
     }
     // PolygonFence(points: point[])
