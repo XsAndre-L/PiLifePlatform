@@ -214,12 +214,14 @@ class piLifeApp {
             followCamera.rotationOffset = 0;
             followCamera.noRotationConstraint = true;
             followCamera.radius = 1000;
-            followCamera.maxZ = 15000;
+            followCamera.maxZ = 100000;
+            followCamera.minZ = 100;
             flyCamera = new BABYLON.FlyCamera('flycam', new BABYLON.Vector3(0, 4000, 0), myScene);
             flyCamera.setTarget(BABYLON.Vector3.Zero());
             flyCamera.speed = 100;
             flyCamera.rollCorrect = 5;
-            flyCamera.maxZ = 15000;
+            flyCamera.maxZ = 100000;
+            flyCamera.minZ = 100;
             scene.onPointerDown = (evt) => {
                 if (evt.button == 0) {
                     engine.enterPointerlock();
