@@ -207,7 +207,7 @@ class piLifeApp {
             rightFront.position = new BABYLON.Vector3(4500, 0, 2287);
             leftBack.position = new BABYLON.Vector3(-4500, 0, -2287);
             rightBack.position = new BABYLON.Vector3(-4500, 0, 2287);
-            drawDashedLine([new BABYLON.Vector3(LB.nx, 0, LB.ny), new BABYLON.Vector3(RB.nx, 0, RB.ny), new BABYLON.Vector3(RF.nx, 0, RF.ny), new BABYLON.Vector3(LF.nx, 0, LF.ny), new BABYLON.Vector3(LB.nx, 0, LB.ny)], scene);
+            drawDashedLine([new BABYLON.Vector3(LB.nx, 0, LB.ny), new BABYLON.Vector3(RB.nx, 1, RB.ny), new BABYLON.Vector3(RF.nx, 1, RF.ny), new BABYLON.Vector3(LF.nx, 1, LF.ny), new BABYLON.Vector3(LB.nx, 1, LB.ny)], scene);
             // followCamera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5000, -10), myScene);
             followCamera = new BABYLON.FollowCamera("followcam", new BABYLON.Vector3(8000, 4000, 0), myScene, point);
             // This targets the followCamera to scene origin
@@ -288,9 +288,9 @@ class piLifeApp {
                 if (getDistance(CURR_X, CURR_Y, point.position.x, point.position.z) > 10) {
                     //console.log(getDistance(CURR_X,CURR_Y,point.position.x,point.position.z))
                     point.translate(new BABYLON.Vector3(CURR_X - point.position.x, 0, CURR_Y - point.position.z).normalize(), (getDistance(CURR_X, CURR_Y, point.position.x, point.position.z) * 0.05), BABYLON.Space.WORLD);
+                    lines.dispose();
+                    lines = drawDashedLine([new BABYLON.Vector3(LB.nx, 1, LB.ny), new BABYLON.Vector3(RB.nx, 1, RB.ny), new BABYLON.Vector3(point.position.x, 1, point.position.z), new BABYLON.Vector3(LB.nx, 1, LB.ny)], scene);
                 }
-                lines.dispose();
-                lines = drawDashedLine([new BABYLON.Vector3(LB.nx, 0, LB.ny), new BABYLON.Vector3(RB.nx, 0, RB.ny), new BABYLON.Vector3(point.position.x, 1, point.position.z), new BABYLON.Vector3(LB.nx, 0, LB.ny)], scene);
                 //let keys = [false];
                 //
                 // If the device has been registered in the DeviceSourceManager

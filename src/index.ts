@@ -271,7 +271,7 @@ class piLifeApp {
 
 
 
-            drawDashedLine([new BABYLON.Vector3(LB.nx, 0, LB.ny), new BABYLON.Vector3(RB.nx, 0, RB.ny), new BABYLON.Vector3(RF.nx, 0, RF.ny), new BABYLON.Vector3(LF.nx, 0, LF.ny), new BABYLON.Vector3(LB.nx, 0, LB.ny)], scene);
+            drawDashedLine([new BABYLON.Vector3(LB.nx, 0, LB.ny), new BABYLON.Vector3(RB.nx, 1, RB.ny), new BABYLON.Vector3(RF.nx, 1, RF.ny), new BABYLON.Vector3(LF.nx, 1, LF.ny), new BABYLON.Vector3(LB.nx, 1, LB.ny)], scene);
 
 
 
@@ -376,10 +376,11 @@ class piLifeApp {
                 if (getDistance(CURR_X, CURR_Y, point.position.x, point.position.z) > 10) {
                     //console.log(getDistance(CURR_X,CURR_Y,point.position.x,point.position.z))
                     point.translate(new BABYLON.Vector3(CURR_X - point.position.x, 0, CURR_Y - point.position.z).normalize(), (getDistance(CURR_X, CURR_Y, point.position.x, point.position.z) * 0.05), BABYLON.Space.WORLD);
+                    
+                    lines.dispose();
+                    lines = drawDashedLine([new BABYLON.Vector3(LB.nx, 1, LB.ny), new BABYLON.Vector3(RB.nx, 1, RB.ny), new BABYLON.Vector3(point.position.x, 1, point.position.z), new BABYLON.Vector3(LB.nx, 1, LB.ny)], scene);
                 }
 
-                lines.dispose();
-                lines = drawDashedLine([new BABYLON.Vector3(LB.nx, 0, LB.ny), new BABYLON.Vector3(RB.nx, 0, RB.ny), new BABYLON.Vector3(point.position.x, 1, point.position.z), new BABYLON.Vector3(LB.nx, 0, LB.ny)], scene);
 
                 //let keys = [false];
                 //
