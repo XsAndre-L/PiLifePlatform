@@ -368,7 +368,10 @@ class piLifeApp {
             const RunLoop = () => {
                 //point.translate(new BABYLON.Vector3(1, 0, 0), BABYLON.Space.WORLD);
                 //point.position = new BABYLON.Vector3(CURR_X, 0, CURR_Y);
-                point.translate(new BABYLON.Vector3(CURR_X - point.position.x, 0, CURR_Y - point.position.z).normalize(), 8, BABYLON.Space.WORLD);
+                if(getDistance(CURR_X,CURR_Y,point.position.x,point.position.z) > 10){
+                    //console.log(getDistance(CURR_X,CURR_Y,point.position.x,point.position.z))
+                    point.translate(new BABYLON.Vector3(CURR_X - point.position.x, 0, CURR_Y - point.position.z).normalize(), (getDistance(CURR_X,CURR_Y,point.position.x,point.position.z)*0.05), BABYLON.Space.WORLD);
+                }
 
                 lines.dispose();
                 lines = drawDashedLine([new BABYLON.Vector3(LB.nx, 0, LB.ny), new BABYLON.Vector3(RB.nx, 0, RB.ny), new BABYLON.Vector3(point.position.x, 1, point.position.z), new BABYLON.Vector3(LB.nx, 0, LB.ny)], scene);
