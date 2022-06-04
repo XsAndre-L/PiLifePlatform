@@ -25,25 +25,26 @@ const RB = {
     nx: -4500,
     ny: 2287
 };
-const LF = {
-    x: -33.824221,
-    y: 18.928252,
-    nx: 4500,
-    ny: -2287
-};
 const RF = {
     x: -33.823227,
     y: 18.927184,
     nx: 4500,
     ny: 2287
 };
+const LF = {
+    x: -33.824221,
+    y: 18.928252,
+    nx: 4500,
+    ny: -2287
+};
 let CURR_X;
 let CURR_Y;
 export function translateCoordinates(lat, long) {
-    let x = 0;
-    let y = 0;
+    // let x: number = 0;
+    // let y: number = 0;
     const dist_LB_RB = getDistance(LB.x, LB.y, RB.x, RB.y);
     const dist_LB_RB_N = getDistance(LB.nx, LB.ny, RB.nx, RB.ny);
+    console.log('dist 1 old - ' + dist_LB_RB);
     console.log('dist1 - ' + dist_LB_RB_N);
     const side1Change = dist_LB_RB_N / dist_LB_RB;
     console.log('Change ' + side1Change);
@@ -53,25 +54,41 @@ export function translateCoordinates(lat, long) {
     console.log('old dist2 - ' + dist_P_LB);
     console.log('old dist3 - ' + dist_P_RB);
     const tryDist1 = dist_P_LB * side1Change;
-    const tryDist2 = dist_P_RB * side1Change;
+    const tryDist2 = (dist_P_RB * side1Change);
     console.log('new dist2 - ' + tryDist1);
     console.log('new dist2 - ' + tryDist2);
-    //const ang = (-2*dist_LB_RB_N*tryDist2)/ (tryDist2*tryDist2 - ((dist_LB_RB_N * dist_LB_RB_N) + (tryDist2*tryDist2 )));
+    //const Aang = Math.acos(((Math.pow(dist_LB_RB_N,2) + Math.pow(tryDist1,2) - Math.pow(tryDist2 , 2)) / (2 * dist_LB_RB_N * tryDist1)));
+    const Aang = Math.acos(((Math.pow(dist_LB_RB, 2) + Math.pow(dist_P_LB, 2) - Math.pow(dist_P_RB, 2)) / (2 * dist_LB_RB * dist_P_LB)));
     //console.log(ang);
-    const points = calculate_third_point(LB.nx, LB.ny, RB.nx, RB.ny, dist_LB_RB_N, tryDist1, Math.acos(((Math.pow(dist_LB_RB_N, 2) + Math.pow(tryDist1, 2) - Math.pow(tryDist2, 2)) / (2 * dist_LB_RB_N * tryDist1))), false);
+    const points = calculate_third_point(LB.nx, LB.ny, RB.nx, RB.ny, dist_LB_RB_N, tryDist1, Aang, false);
     // C^2 = b^2 + c^2 -2(b)(c)cosA
     // acos( (c^2 + b^2 - a^2) / (2(b)(c))) = A
     // Math.acos((dist_LB_RB_N**2+tryDist1**2-tryDist2**2) / (2*dist_LB_RB_N*tryDist1))
-    //Math.acos((-2*dist_LB_RB*tryDist2)/ (tryDist2*tryDist2 - ((dist_LB_RB * dist_LB_RB) + (tryDist2*tryDist2 ))))
-    CURR_X = points.Px;
-    CURR_Y = points.Py;
+    CURR_X = (points.Px > 0 ? points.Px / 1.4 : points.Px); ///1.4;
+    CURR_Y = points.Py + (1 * (tryDist1 < tryDist2 ? tryDist1 / 2.9 : tryDist2 / 2.9)); //4064.9325016956275
     console.log(CURR_X + '  ' + CURR_Y);
+    console.log('SIDE 1 :' + getDistance(CURR_X, CURR_Y, LB.nx, LB.ny));
+    console.log('SIDE 2 :' + getDistance(CURR_X, CURR_Y, RB.nx, RB.ny));
+}
+// var multiply = function(a:number, b:number) {
+//     var commonMultiplier = 1000000;
+//     a *= commonMultiplier;
+//     b *= commonMultiplier;
+//     return (a * b) / (commonMultiplier * commonMultiplier);
+// };
+function get_third_point_coordinates(a, b, c) {
+    var result = { x: 0, y: 0 };
+    if (a > 0) {
+        result.x = (c * c - b * b + a * a) / (2 * a);
+    }
+    result.y = Math.sqrt(c * c - result.x * result.x);
+    return result;
 }
 /**
  * Find the coordinates for the third point of a triangle.
  *
- * @param Ax - x coordinate value of first known point
- * @param Ay - y coordinate value of first known point
+ * @param LBx - x coordinate value of first known point
+ * @param LBy - y coordinate value of first known point
  * @param Cx - x coordinate value of second known point
  * @param Cy - y coordinate value of second known point
  * @param b - the length of side b
@@ -80,29 +97,29 @@ export function translateCoordinates(lat, long) {
  * @param alt - set to true to return the alternative solution.
  * @returns {{Bx: *, By: *}}
  */
-function calculate_third_point(Ax, Ay, Cx, Cy, b, c, A, alt) {
-    console.log(Ax + ' ' + Ay + ' ' + Cx + ' ' + Cy + ' ' + b + ' ' + c + ' ' + A + ' ' + alt);
+function calculate_third_point(LBx, LBy, Cx, Cy, b, c, A, alt) {
+    console.log(LBx + ' ' + LBy + ' ' + Cx + ' ' + Cy + ' ' + b + ' ' + c + ' ' + A + ' ' + alt);
     var Bx;
     var By;
     alt = typeof alt === 'undefined' ? false : alt;
     //unit vector
-    let uACx = (Cx - Ax) / b;
-    let uACy = (Cy - Ay) / b;
+    let uACx = (Cx - LBx) / b;
+    let uACy = (Cy - LBy) / b;
     if (alt) {
         //rotated vector
         let uABx = uACx * Math.cos(A) - uACy * Math.sin(A);
         let uABy = uACx * Math.sin(A) + uACy * Math.cos(A);
         //B position uses length of edge
-        Bx = Ax + c * uABx;
-        By = Ay + c * uABy;
+        Bx = LBx + c * uABx;
+        By = LBy + c * uABy;
     }
     else {
         //vector rotated into another direction
         let uABx = uACx * Math.cos(A) + uACy * Math.sin(A);
         let uABy = -uACx * Math.sin(A) + uACy * Math.cos(A);
         //second possible position
-        Bx = Ax + c * uABx;
-        By = Ay + c * uABy;
+        Bx = LBx + c * uABx;
+        By = LBy + c * uABy;
     }
     return { Px: Bx, Py: By };
 }
@@ -123,19 +140,12 @@ function getDistance(x1, y1, x2, y2) {
 class PolygonFence {
     constructor() {
         this.PointList = [
-            { X: -33.826447, Y: 18.924780 },
-            { X: -33.825517, Y: 18.923640 },
-            { X: -33.823227, Y: 18.927184 },
-            { X: -33.824221, Y: 18.928252 }
+            { X: LB.x, Y: LB.y },
+            { X: RB.x, Y: RB.y },
+            { X: RF.x, Y: RF.y },
+            { X: LF.x, Y: LF.y }
         ];
     }
-    // PolygonFence(points: point[])
-    // {
-    //     foreach (Point p in points)
-    //     {
-    //         this.PointList.Add(p);
-    //     }
-    // }
     Count() {
         return this.PointList.length;
     }
@@ -158,12 +168,16 @@ class PolygonFence {
 //////////////////////
 class piLifeApp {
     constructor() {
+        this.camMode = true;
         const canvas = document.getElementById("renderCanvas");
         const engine = new BABYLON.Engine(canvas, true); //, { preserveDrawingBuffer: true, stencil: true }
         let scene = new BABYLON.Scene(engine);
         let sceneToRender = null;
         let point;
-        let camera;
+        //let camMode: boolean = true;
+        let followCamera;
+        let flyCamera;
+        let deviceSourceManager = new BABYLON.DeviceSourceManager(scene.getEngine());
         var createDefaultEngine = () => __awaiter(this, void 0, void 0, function* () {
             return new BABYLON.Engine(canvas, true);
             // var EN = new BABYLON.WebGPUEngine(canvas);
@@ -174,16 +188,6 @@ class piLifeApp {
             // Setup the scene
             //scene = new BABYLON.Scene(engine);
             var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
-            // var camera = new BABYLON.ArcRotateCamera(
-            //     "camera1",
-            //     // -(Math.PI / 2), 
-            //     // Math.PI / 2, 
-            //     BABYLON.Tools.ToRadians(45),
-            //     BABYLON.Tools.ToRadians(45),
-            //     30,
-            //     new BABYLON.Vector3(0, 5, 0),
-            //     scene
-            // );
             return scene;
         };
         var mesh1;
@@ -200,29 +204,59 @@ class piLifeApp {
             rightFront.position = new BABYLON.Vector3(4500, 0, 2287);
             leftBack.position = new BABYLON.Vector3(-4500, 0, -2287);
             rightBack.position = new BABYLON.Vector3(-4500, 0, 2287);
-            // camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5000, -10), myScene);
-            camera = new BABYLON.FollowCamera("followCam", new BABYLON.Vector3(8000, 4000, 0), myScene, point);
-            // This targets the camera to scene origin
-            camera.setTarget(BABYLON.Vector3.Zero());
-            camera.inputs.clear();
-            camera.heightOffset = 5000;
-            camera.rotationOffset = 0;
-            camera.noRotationConstraint = true;
-            camera.radius = 1000;
+            drawDashedLine([new BABYLON.Vector3(LB.nx, 0, LB.ny), new BABYLON.Vector3(RB.nx, 0, RB.ny), new BABYLON.Vector3(RF.nx, 0, RF.ny), new BABYLON.Vector3(LF.nx, 0, LF.ny), new BABYLON.Vector3(LB.nx, 0, LB.ny)], scene);
+            // followCamera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5000, -10), myScene);
+            followCamera = new BABYLON.FollowCamera("followcam", new BABYLON.Vector3(8000, 4000, 0), myScene, point);
+            // This targets the followCamera to scene origin
+            followCamera.setTarget(BABYLON.Vector3.Zero());
+            followCamera.inputs.clear();
+            followCamera.heightOffset = 5000;
+            followCamera.rotationOffset = 0;
+            followCamera.noRotationConstraint = true;
+            followCamera.radius = 1000;
+            followCamera.maxZ = 15000;
+            flyCamera = new BABYLON.FlyCamera('flycam', new BABYLON.Vector3(0, 4000, 0), myScene);
+            flyCamera.setTarget(BABYLON.Vector3.Zero());
+            flyCamera.speed = 100;
+            flyCamera.rollCorrect = 5;
+            flyCamera.maxZ = 15000;
+            scene.onPointerDown = (evt) => {
+                if (evt.button == 0) {
+                    engine.enterPointerlock();
+                }
+                // if (evt.button == 1) {
+                //     engine.exitPointerlock();
+                // }
+            };
+            let camMode = false;
+            window.addEventListener("keydown", function (e) {
+                if (e.altKey) {
+                    if (camMode == false) {
+                        console.log('FOLLOW CAM');
+                        camMode = true;
+                        scene.setActiveCameraById('followcam');
+                    }
+                    else {
+                        console.log('FLYCAM');
+                        camMode = false;
+                        scene.setActiveCameraById('flycam');
+                    }
+                }
+            });
+            //scene.onKeyboardObservable
+            scene.setActiveCameraById('flycam');
             //133.03200303596768528483053511355
-            // This attaches the camera to the canvas
-            // camera.attachControl(Canvas, true);
-            // camera.speed = 40;
-            // camera.keysUp.push(87);
-            // camera.keysDown.push(83);
-            // camera.keysLeft.push(65);
-            // camera.keysRight.push(68);
+            // This attaches the followCamera to the canvas
+            // followCamera.attachControl(Canvas, true);
+            // followCamera.speed = 40;
+            // followCamera.keysUp.push(87);
+            // followCamera.keysDown.push(83);
+            // followCamera.keysLeft.push(65);
+            // followCamera.keysRight.push(68);
             // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
             var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), myScene);
             // Default intensity is 1. Let's dim the light a small amount
             light.intensity = 0.7;
-            // Our built-in 'ground' shape. Params: name, options, scene
-            //const ground = BABYLON.MeshBuilder.CreateGround("ground", { width: 6, height: 6 }, myScene);
             for (let index = 0; index < Meshes.length; index++) {
                 BABYLON.SceneLoader.ImportMesh(null, 
                 //"../assets/",//Local
@@ -234,18 +268,60 @@ class piLifeApp {
                 });
             }
             // Post Process [to be moved into ./Rendering/post-process]
-            var motionblur = new BABYLON.MotionBlurPostProcess("mb", // The name of the effect.
-            scene, // The scene containing the objects to blur according to their velocity.
-            1.0, // The required width/height ratio to downsize to before computing the render pass.
-            camera // The camera to apply the render pass to.
-            );
-            motionblur.motionStrength = 1.2;
+            // var motionblur = new BABYLON.MotionBlurPostProcess(
+            //     "mb", // The name of the effect.
+            //     scene, // The scene containing the objects to blur according to their velocity.
+            //     1.0, // The required width/height ratio to downsize to before computing the render pass.
+            //     followCamera // The followCamera to apply the render pass to.
+            // );
+            // motionblur.motionStrength = 1.2;
             //----
-            function RunLoop() {
+            let lines = drawDashedLine([new BABYLON.Vector3(LB.nx, 0, LB.ny), new BABYLON.Vector3(RB.nx, 0, RB.ny), new BABYLON.Vector3(point.position.x, 1, point.position.z), new BABYLON.Vector3(LB.nx, 0, LB.ny)], scene);
+            const RunLoop = () => {
                 //point.translate(new BABYLON.Vector3(1, 0, 0), BABYLON.Space.WORLD);
-                point.position = new BABYLON.Vector3(CURR_X, 0, CURR_Y);
-            }
+                //point.position = new BABYLON.Vector3(CURR_X, 0, CURR_Y);
+                point.translate(new BABYLON.Vector3(CURR_X - point.position.x, 0, CURR_Y - point.position.z).normalize(), 8, BABYLON.Space.WORLD);
+                lines.dispose();
+                lines = drawDashedLine([new BABYLON.Vector3(LB.nx, 0, LB.ny), new BABYLON.Vector3(RB.nx, 0, RB.ny), new BABYLON.Vector3(point.position.x, 1, point.position.z), new BABYLON.Vector3(LB.nx, 0, LB.ny)], scene);
+                //let keys = [false];
+                //
+                // If the device has been registered in the DeviceSourceManager
+                // if (deviceSourceManager.getDeviceSource(BABYLON.DeviceType.Keyboard)) {
+                //     // And the A button was pressed
+                //     deviceSourceManager.getDeviceSource(BABYLON.DeviceType.Keyboard)?.onInputChangedObservable.add((eventData: BABYLON.IKeyboardEvent) =>{ 
+                //         if(eventData.type == 'keydown' && eventData.altKey && !keys[0]){
+                //             keys[0] = true;
+                //             if(camMode == false){
+                //                 console.log('FOLLOW CAM')
+                //                 camMode = true;
+                //                 scene.setActiveCameraById('followcam');
+                //             }else {
+                //                 console.log('FLYCAM')
+                //                 camMode =false;
+                //                 scene.setActiveCameraById('flycam');
+                //             }
+                //             console.log("PRESSS");
+                //         }else if(eventData.type == 'keyup' && eventData.altKey && keys[0]){
+                //             keys[0] = false;
+                //             console.log("UNPRESS")
+                //         }
+                //     })
+                // }
+            };
             setInterval(RunLoop, 16);
+            // var keys = {};
+            // scene.onKeyboardObservable.add((e: BABYLON.KeyboardInfo)=>{
+            //     e = e.event;
+            //         switch(e.type){
+            //             case 'keydown':
+            //                 if(keys[e.key])return;
+            //                 keys[e.key] = {ts:Date.now(), fired:false};
+            //             break;
+            //             case 'keyup':
+            //                delete keys[e.key];
+            //             break;
+            //         }               
+            // });
             return scene;
         };
         createDefaultEngine();
@@ -268,6 +344,20 @@ class piLifeApp {
     }
 }
 new piLifeApp();
+function drawDashedLine(pointArray, scene, inst) {
+    const options = {
+        points: pointArray, //vec3 array,
+        // updatable: true,
+        // dashSize: 5,
+        // gapSize: 2,
+        // instance: undefined
+    };
+    let dashedlines = BABYLON.MeshBuilder.CreateDashedLines("dashedlines", options, scene); //scene is optional and defaults to the current scene
+    // Update
+    options.points[0].x += 6;
+    options.instance = dashedlines;
+    return dashedlines = BABYLON.MeshBuilder.CreateDashedLines("dashedlines", options); //No scene 
+}
 // export default engine;
 // Location
 let geowatch;
