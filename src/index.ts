@@ -315,7 +315,7 @@ class piLifeApp {
             })
             //scene.onKeyboardObservable
 
-            scene.setActiveCameraById('flycam');
+            scene.setActiveCameraById('followcam');
             //133.03200303596768528483053511355
 
             // This attaches the followCamera to the canvas
