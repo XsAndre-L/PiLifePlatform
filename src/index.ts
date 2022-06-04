@@ -81,8 +81,8 @@ export function translateCoordinates(lat: number, long: number) {
 
     // Math.acos((dist_LB_RB_N**2+tryDist1**2-tryDist2**2) / (2*dist_LB_RB_N*tryDist1))
 
-    CURR_X = (points.Px > 0 ? points.Px/1.4 : points.Px);///1.4;
-    CURR_Y = points.Py + (1* (tryDist1 < tryDist2 ? tryDist1/2.9 : tryDist2/2.9) );//4064.9325016956275
+    CURR_X = (points.Px > 0 ? points.Px / 1.4 : points.Px);///1.4;
+    CURR_Y = points.Py + (1 * (tryDist1 < tryDist2 ? tryDist1 / 2.9 : tryDist2 / 2.9));//4064.9325016956275
     console.log(CURR_X + '  ' + CURR_Y);
 
     console.log('SIDE 1 :' + getDistance(CURR_X, CURR_Y, LB.nx, LB.ny));
@@ -254,7 +254,10 @@ class piLifeApp {
         var createScene = function (myScene: BABYLON.Scene, Canvas: any) {
 
             // Create Objects
-            point = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 30, segments: 32 }, myScene);
+            var material0 = new BABYLON.StandardMaterial("mat0", scene);
+            material0.diffuseColor = new BABYLON.Color3(255, 0, 0);
+            point = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 40, segments: 32 }, myScene);
+            point.material = material0;
 
             const leftFront = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 30, segments: 32 }, myScene);
             const rightFront = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 30, segments: 32 }, myScene);
@@ -370,9 +373,9 @@ class piLifeApp {
             const RunLoop = () => {
                 //point.translate(new BABYLON.Vector3(1, 0, 0), BABYLON.Space.WORLD);
                 //point.position = new BABYLON.Vector3(CURR_X, 0, CURR_Y);
-                if(getDistance(CURR_X,CURR_Y,point.position.x,point.position.z) > 10){
+                if (getDistance(CURR_X, CURR_Y, point.position.x, point.position.z) > 10) {
                     //console.log(getDistance(CURR_X,CURR_Y,point.position.x,point.position.z))
-                    point.translate(new BABYLON.Vector3(CURR_X - point.position.x, 0, CURR_Y - point.position.z).normalize(), (getDistance(CURR_X,CURR_Y,point.position.x,point.position.z)*0.05), BABYLON.Space.WORLD);
+                    point.translate(new BABYLON.Vector3(CURR_X - point.position.x, 0, CURR_Y - point.position.z).normalize(), (getDistance(CURR_X, CURR_Y, point.position.x, point.position.z) * 0.05), BABYLON.Space.WORLD);
                 }
 
                 lines.dispose();
@@ -458,10 +461,11 @@ function drawDashedLine(pointArray: BABYLON.Vector3[], scene: BABYLON.Scene, ins
         updatable?: boolean | undefined;
         instance?: BABYLON.LinesMesh | undefined;
         // useVertexAlpha?: boolean | undefined;
-        // material?: BABYLON.Material | undefined;
+        material?: BABYLON.Material | undefined;
     } =
     {
         points: pointArray, //vec3 array,
+
         // updatable: true,
         // dashSize: 5,
         // gapSize: 2,
@@ -470,6 +474,10 @@ function drawDashedLine(pointArray: BABYLON.Vector3[], scene: BABYLON.Scene, ins
 
     let dashedlines = BABYLON.MeshBuilder.CreateDashedLines("dashedlines", options, scene);  //scene is optional and defaults to the current scene
     // Update
+
+
+
+    // options.material = material0;
     options.points[0].x += 6;
     options.instance = dashedlines;
     return dashedlines = BABYLON.MeshBuilder.CreateDashedLines("dashedlines", options); //No scene 

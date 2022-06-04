@@ -195,7 +195,10 @@ class piLifeApp {
         let P_meshName = ["Babylonstoren 3D Map.glb"];
         var createScene = function (myScene, Canvas) {
             // Create Objects
-            point = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 30, segments: 32 }, myScene);
+            var material0 = new BABYLON.StandardMaterial("mat0", scene);
+            material0.diffuseColor = new BABYLON.Color3(255, 0, 0);
+            point = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 40, segments: 32 }, myScene);
+            point.material = material0;
             const leftFront = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 30, segments: 32 }, myScene);
             const rightFront = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 30, segments: 32 }, myScene);
             const leftBack = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 30, segments: 32 }, myScene);
@@ -359,6 +362,7 @@ function drawDashedLine(pointArray, scene, inst) {
     };
     let dashedlines = BABYLON.MeshBuilder.CreateDashedLines("dashedlines", options, scene); //scene is optional and defaults to the current scene
     // Update
+    // options.material = material0;
     options.points[0].x += 6;
     options.instance = dashedlines;
     return dashedlines = BABYLON.MeshBuilder.CreateDashedLines("dashedlines", options); //No scene 
