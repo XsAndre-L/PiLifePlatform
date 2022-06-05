@@ -76,6 +76,8 @@ export function translateCoordinates(lat, long) {
     console.log(CURR_X + '  ' + CURR_Y);
     console.log('SIDE 1 :' + getDistance(CURR_X, CURR_Y, LB.nx, LB.ny));
     console.log('SIDE 2 :' + getDistance(CURR_X, CURR_Y, RB.nx, RB.ny));
+    //(points.Px > 0 ? points.Px / 1.4 : points.Px)
+    //+ (1 * (tryDist1 < tryDist2 ? tryDist1 / 2.9 : tryDist2 / 2.9))
     return { x: (points.Px > 0 ? points.Px / 1.4 : points.Px), z: points.Py + (1 * (tryDist1 < tryDist2 ? tryDist1 / 2.9 : tryDist2 / 2.9)) };
 }
 /**
@@ -413,12 +415,12 @@ function GetGeoLocation() {
                     CURR_X = curr.x;
                     CURR_Y = curr.z; //4064.9325016956275
                     if (text) {
-                        text.innerHTML = `LAT : ${lat}  LONG : ${long}  ACCURACY : ${accuracy} HEAD : ${head} | YOU ARE IN THE GARDEN`;
+                        text.innerHTML = `LOC : ${lat}, ${long}   | <span class="in">YOU ARE IN THE GARDEN</span>`;
                     }
                 }
                 else {
                     if (text) {
-                        text.innerHTML = `LAT : ${lat}  LONG : ${long}  ACCURACY : ${accuracy} HEAD : ${head} | NOT IN THE GARDEN !`;
+                        text.innerHTML = `LOC : ${lat}, ${long}   | <span class="out">NOT IN THE GARDEN !</span>`;
                     }
                 }
                 //-33.3692478,18.3920107
