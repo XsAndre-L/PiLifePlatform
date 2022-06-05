@@ -10,10 +10,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+const path = 'https://xsandre-l.github.io/PiLifePlatform/';
+// const path = '../';
 const Departments = {
     Babel: {
         pos: { x: -33.823756, z: 18.926544 },
-        iconPath: '../assets/textures/Restoraunt Icon.png'
+        iconPath: `${path}assets/textures/Restoraunt Icon.png`
     }
 };
 const LB = {

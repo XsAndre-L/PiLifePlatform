@@ -3,10 +3,13 @@
 //import { Engine } from "babylonjs";
 //import { Scene } from 'babylonjs';
 
+const path = 'https://xsandre-l.github.io/PiLifePlatform/';
+// const path = '../';
+
 const Departments = {
     Babel: {
         pos: {x: -33.823756 ,z: 18.926544},
-        iconPath: '../assets/textures/Restoraunt Icon.png'
+        iconPath: `${path}assets/textures/Restoraunt Icon.png`
     }
 }
 
