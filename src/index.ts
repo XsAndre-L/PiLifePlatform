@@ -3,15 +3,12 @@
 //import { Engine } from "babylonjs";
 //import { Scene } from 'babylonjs';
 
-
-
-//import { PolygonFence } from "./coordinate_translation";
-// import * as BABYLON from '@babylonjs/core';
-
-
-
-/////////////////////
-
+const Departments = {
+    Babel: {
+        pos: {x: -33.823756 ,z: 18.926544},
+        iconPath: '../assets/textures/Restoraunt Icon.png'
+    }
+}
 
 const LB = {
     x: -33.826447,
@@ -87,26 +84,6 @@ export function translateCoordinates(lat: number, long: number) {
 
     console.log('SIDE 1 :' + getDistance(CURR_X, CURR_Y, LB.nx, LB.ny));
     console.log('SIDE 2 :' + getDistance(CURR_X, CURR_Y, RB.nx, RB.ny));
-}
-
-// var multiply = function(a:number, b:number) {
-//     var commonMultiplier = 1000000;
-
-//     a *= commonMultiplier;
-//     b *= commonMultiplier;
-
-//     return (a * b) / (commonMultiplier * commonMultiplier);
-// };
-
-function get_third_point_coordinates(a: number, b: number, c: number) { // How can this work if the function is not aware of the 2 known points?
-    var result = { x: 0, y: 0 };
-
-    if (a > 0) {
-        result.x = (c * c - b * b + a * a) / (2 * a);
-    }
-
-    result.y = Math.sqrt(c * c - result.x * result.x);
-    return result;
 }
 
 /**
@@ -246,9 +223,10 @@ class piLifeApp {
         };
 
 
-        var mesh1;
-        var Meshes = [mesh1];
-        let P_meshName = ["Babylonstoren 3D Map.glb"]
+        let mesh1: any;
+        let DepartmentPin: any;
+        var Meshes: BABYLON.Mesh[] = [mesh1, DepartmentPin];
+        let P_meshName = ["Babylonstoren 3D Map.glb", "Department Pin.glb"]
 
 
         var createScene = function (myScene: BABYLON.Scene, Canvas: any) {
@@ -276,16 +254,32 @@ class piLifeApp {
 
 
             // followCamera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5000, -10), myScene);
-            followCamera = new BABYLON.FollowCamera("followcam", new BABYLON.Vector3(8000, 4000, 0), myScene, point);
+            followCamera = new BABYLON.FollowCamera("followcam", new BABYLON.Vector3(8000, 4000, 0), myScene);
             // This targets the followCamera to scene origin
-            followCamera.setTarget(BABYLON.Vector3.Zero());
-            followCamera.inputs.clear();
+            //followCamera.setTarget(BABYLON.Vector3.Zero());
+            // followCamera.inputs.clear();
+            followCamera.lockedTarget = point;
             followCamera.heightOffset = 5000;
-            followCamera.rotationOffset = 0;
-            followCamera.noRotationConstraint = true;
+            // followCamera.rotationOffset = 0;
+            // followCamera.noRotationConstraint = true;
+            // followCamera.attachControl();
             followCamera.radius = 1000;
             followCamera.maxZ = 100000;
             followCamera.minZ = 100;
+            followCamera.lowerHeightOffsetLimit = 1000;
+            followCamera.upperHeightOffsetLimit = 8000;
+            followCamera.cameraAcceleration = 0.1;
+            followCamera.maxCameraSpeed = 50;
+            followCamera.speed = 0;
+            followCamera.upperRotationOffsetLimit = 0;
+            followCamera.lowerRotationOffsetLimit = 0;
+
+            // followCamera.inverseRotationSpeed = 0.1;
+            //followCamera.inputs.removeByType('ArcRotateCameraPointersInput');
+            //followCamera.inputs.removeByType('FollowCameraPointersInput')
+            // followCamera.cameraAcceleration =100;
+            //followCamera.inputs.attached.wheelDeltaPercentage();
+
 
             flyCamera = new BABYLON.FlyCamera('flycam', new BABYLON.Vector3(0, 4000, 0), myScene);
             flyCamera.setTarget(BABYLON.Vector3.Zero());
@@ -343,19 +337,25 @@ class piLifeApp {
 
                 BABYLON.SceneLoader.ImportMesh(
                     null,
-                    //"../assets/",//Local
-                    "https://xsandre-l.github.io/PiLifePlatform/assets/",//non-Local
+                    "../assets/",//Local
+                    //"https://xsandre-l.github.io/PiLifePlatform/assets/",//non-Local
                     P_meshName[index],
                     scene,
-                    function (
+                    async function (
                         meshes: any,
                         materials: any
                     ) {
-                        scene.createDefaultCameraOrLight(true);
+                        //scene.createDefaultCameraOrLight(true);
                         scene._activeCamera?.attachControl(Canvas, true);
+
+                        if (index == 1) {
+                            const babel_3D_Pos = translateCoordinates(Departments.Babel.pos.x, Departments.Babel.pos.z);
+                            createDepartmentPin(meshes[0], new BABYLON.Vector3(CURR_X, 0 ,CURR_Y), Departments.Babel.iconPath , scene);
+                        }
                     }
                 );
             }
+
 
 
             // Post Process [to be moved into ./Rendering/post-process]
@@ -376,58 +376,39 @@ class piLifeApp {
                 if (getDistance(CURR_X, CURR_Y, point.position.x, point.position.z) > 10) {
                     //console.log(getDistance(CURR_X,CURR_Y,point.position.x,point.position.z))
                     point.translate(new BABYLON.Vector3(CURR_X - point.position.x, 0, CURR_Y - point.position.z).normalize(), (getDistance(CURR_X, CURR_Y, point.position.x, point.position.z) * 0.05), BABYLON.Space.WORLD);
-                    
+
                     lines.dispose();
                     lines = drawDashedLine([new BABYLON.Vector3(LB.nx, 1, LB.ny), new BABYLON.Vector3(RB.nx, 1, RB.ny), new BABYLON.Vector3(point.position.x, 1, point.position.z), new BABYLON.Vector3(LB.nx, 1, LB.ny)], scene);
                 }
 
-
-                //let keys = [false];
-                //
-                // If the device has been registered in the DeviceSourceManager
-                // if (deviceSourceManager.getDeviceSource(BABYLON.DeviceType.Keyboard)) {
-                //     // And the A button was pressed
-                //     deviceSourceManager.getDeviceSource(BABYLON.DeviceType.Keyboard)?.onInputChangedObservable.add((eventData: BABYLON.IKeyboardEvent) =>{ 
-                //         if(eventData.type == 'keydown' && eventData.altKey && !keys[0]){
-                //             keys[0] = true;
-
-                //             if(camMode == false){
-                //                 console.log('FOLLOW CAM')
-                //                 camMode = true;
-                //                 scene.setActiveCameraById('followcam');
-                //             }else {
-                //                 console.log('FLYCAM')
-                //                 camMode =false;
-                //                 scene.setActiveCameraById('flycam');
-                //             }
-                //             console.log("PRESSS");
-                //         }else if(eventData.type == 'keyup' && eventData.altKey && keys[0]){
-                //             keys[0] = false;
-                //             console.log("UNPRESS")
-                //         }
-                //     })
-                // }
             }
             setInterval(RunLoop, 16);
-
-            // var keys = {};
-            // scene.onKeyboardObservable.add((e: BABYLON.KeyboardInfo)=>{
-            //     e = e.event;
-            //         switch(e.type){
-            //             case 'keydown':
-            //                 if(keys[e.key])return;
-            //                 keys[e.key] = {ts:Date.now(), fired:false};
-
-            //             break;
-            //             case 'keyup':
-            //                delete keys[e.key];
-            //             break;
-            //         }               
-            // });
 
 
             return scene;
         }
+
+
+        async function createDepartmentPin(pinMesh: BABYLON.Mesh, pinPosition: BABYLON.Vector3, texturePath: string, scene: BABYLON.Scene) {
+            let newPin = await pinMesh.clone("newPin");
+            newPin.position = new BABYLON.Vector3(pinPosition.x, 100, pinPosition.z);
+            newPin.scaling = new BABYLON.Vector3(100, 100, 100);
+            let BabelRestoraunt_Icon = BABYLON.MeshBuilder.CreatePlane('Icon', { height: 150, width: 100 }, scene);
+            let BabelIconMat = new BABYLON.PBRMaterial('IconMat', scene);
+            // let BabelIconTex = 
+            BabelIconMat.albedoTexture = new BABYLON.Texture(texturePath, scene, true);
+            BabelIconMat.albedoColor = new BABYLON.Color3(0.5, 0.1, 1);
+            BabelIconMat.opacityTexture = new BABYLON.Texture(texturePath, scene, true);
+            BabelIconMat.transparencyMode = 2;
+            BabelIconMat.metallic = 0;
+            BabelIconMat.roughness = 100;
+            BabelRestoraunt_Icon.material = BabelIconMat;
+            BabelIconMat.needAlphaTesting();
+
+            BabelRestoraunt_Icon.billboardMode = BABYLON.AbstractMesh.BILLBOARDMODE_ALL;
+            BabelRestoraunt_Icon.position = new BABYLON.Vector3(pinPosition.x, 400, pinPosition.z);
+        }
+
 
         createDefaultEngine();
         if (!engine) throw 'engine should not be null.';
@@ -466,19 +447,11 @@ function drawDashedLine(pointArray: BABYLON.Vector3[], scene: BABYLON.Scene, ins
     } =
     {
         points: pointArray, //vec3 array,
-
-        // updatable: true,
-        // dashSize: 5,
-        // gapSize: 2,
-        // instance: undefined
     }
 
     let dashedlines = BABYLON.MeshBuilder.CreateDashedLines("dashedlines", options, scene);  //scene is optional and defaults to the current scene
     // Update
 
-
-
-    // options.material = material0;
     options.points[0].x += 6;
     options.instance = dashedlines;
     return dashedlines = BABYLON.MeshBuilder.CreateDashedLines("dashedlines", options); //No scene 
