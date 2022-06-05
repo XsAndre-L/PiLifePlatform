@@ -16,6 +16,10 @@ const Departments = {
     Babel: {
         pos: { x: -33.823756, z: 18.926544 },
         iconPath: `${path}assets/textures/Restoraunt Icon.png`
+    },
+    GlasKas: {
+        pos: { x: -33.825649, z: 18.924088 },
+        iconPath: `${path}assets/textures/Restoraunt Icon.png`
     }
 };
 const LB = {
@@ -69,11 +73,10 @@ export function translateCoordinates(lat, long) {
     // C^2 = b^2 + c^2 -2(b)(c)cosA
     // acos( (c^2 + b^2 - a^2) / (2(b)(c))) = A
     // Math.acos((dist_LB_RB_N**2+tryDist1**2-tryDist2**2) / (2*dist_LB_RB_N*tryDist1))
-    CURR_X = (points.Px > 0 ? points.Px / 1.4 : points.Px); ///1.4;
-    CURR_Y = points.Py + (1 * (tryDist1 < tryDist2 ? tryDist1 / 2.9 : tryDist2 / 2.9)); //4064.9325016956275
     console.log(CURR_X + '  ' + CURR_Y);
     console.log('SIDE 1 :' + getDistance(CURR_X, CURR_Y, LB.nx, LB.ny));
     console.log('SIDE 2 :' + getDistance(CURR_X, CURR_Y, RB.nx, RB.ny));
+    return { x: (points.Px > 0 ? points.Px / 1.4 : points.Px), z: points.Py + (1 * (tryDist1 < tryDist2 ? tryDist1 / 2.9 : tryDist2 / 2.9)) };
 }
 /**
  * Find the coordinates for the third point of a triangle.
@@ -185,11 +188,21 @@ class piLifeApp {
         let DepartmentPin;
         var Meshes = [mesh1, DepartmentPin];
         let P_meshName = ["Babylonstoren 3D Map.glb", "Department Pin.glb"];
+        function createFlyCam(scene) {
+            flyCamera = new BABYLON.FlyCamera('flycam', new BABYLON.Vector3(0, 4000, 0), scene);
+            flyCamera.setTarget(BABYLON.Vector3.Zero());
+            flyCamera.speed = 100;
+            flyCamera.rollCorrect = 5;
+            flyCamera.maxZ = 100000;
+            flyCamera.minZ = 100;
+            flyCamera.attachControl();
+        }
         var createScene = function (myScene, Canvas) {
             // Create Objects
             var material0 = new BABYLON.StandardMaterial("mat0", scene);
             material0.diffuseColor = new BABYLON.Color3(255, 0, 0);
             point = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 40, segments: 32 }, myScene);
+            point.rotate(new BABYLON.Vector3(0, 1, 0), 1.5);
             point.material = material0;
             const leftFront = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 30, segments: 32 }, myScene);
             const rightFront = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 30, segments: 32 }, myScene);
@@ -208,7 +221,7 @@ class piLifeApp {
             followCamera.lockedTarget = point;
             followCamera.heightOffset = 5000;
             // followCamera.rotationOffset = 0;
-            // followCamera.noRotationConstraint = true;
+            followCamera.noRotationConstraint = false;
             // followCamera.attachControl();
             followCamera.radius = 1000;
             followCamera.maxZ = 100000;
@@ -220,17 +233,12 @@ class piLifeApp {
             followCamera.speed = 0;
             followCamera.upperRotationOffsetLimit = 0;
             followCamera.lowerRotationOffsetLimit = 0;
+            followCamera.rotationOffset = -440;
             // followCamera.inverseRotationSpeed = 0.1;
             //followCamera.inputs.removeByType('ArcRotateCameraPointersInput');
             //followCamera.inputs.removeByType('FollowCameraPointersInput')
             // followCamera.cameraAcceleration =100;
             //followCamera.inputs.attached.wheelDeltaPercentage();
-            flyCamera = new BABYLON.FlyCamera('flycam', new BABYLON.Vector3(0, 4000, 0), myScene);
-            flyCamera.setTarget(BABYLON.Vector3.Zero());
-            flyCamera.speed = 100;
-            flyCamera.rollCorrect = 5;
-            flyCamera.maxZ = 100000;
-            flyCamera.minZ = 100;
             scene.onPointerDown = (evt) => {
                 if (evt.button == 0) {
                     engine.enterPointerlock();
@@ -250,6 +258,7 @@ class piLifeApp {
                     else {
                         console.log('FLYCAM');
                         camMode = false;
+                        createFlyCam(scene);
                         scene.setActiveCameraById('flycam');
                     }
                 }
@@ -279,7 +288,9 @@ class piLifeApp {
                         (_a = scene._activeCamera) === null || _a === void 0 ? void 0 : _a.attachControl(Canvas, true);
                         if (index == 1) {
                             const babel_3D_Pos = translateCoordinates(Departments.Babel.pos.x, Departments.Babel.pos.z);
-                            createDepartmentPin(meshes[0], new BABYLON.Vector3(CURR_X, 0, CURR_Y), Departments.Babel.iconPath, scene);
+                            createDepartmentPin(meshes[0], new BABYLON.Vector3(babel_3D_Pos.x, 0, babel_3D_Pos.z), Departments.Babel.iconPath, scene);
+                            const glaskas_3D_Pos = translateCoordinates(Departments.GlasKas.pos.x, Departments.GlasKas.pos.z);
+                            createDepartmentPin(meshes[0], new BABYLON.Vector3(glaskas_3D_Pos.x, 0, glaskas_3D_Pos.z), Departments.GlasKas.iconPath, scene);
                         }
                     });
                 });
@@ -398,7 +409,9 @@ function GetGeoLocation() {
                 // if then Translate Point into coordinates
                 console.log(PF.IsWithinFence({ X: lat, Y: long }));
                 if (PF.IsWithinFence({ X: lat, Y: long })) {
-                    translateCoordinates(lat, long);
+                    const curr = translateCoordinates(lat, long);
+                    CURR_X = curr.x;
+                    CURR_Y = curr.z; //4064.9325016956275
                     if (text) {
                         text.innerHTML = `LAT : ${lat}  LONG : ${long}  ACCURACY : ${accuracy} HEAD : ${head} | YOU ARE IN THE GARDEN`;
                     }
