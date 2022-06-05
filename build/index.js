@@ -267,8 +267,9 @@ class piLifeApp {
             // Default intensity is 1. Let's dim the light a small amount
             light.intensity = 0.7;
             for (let index = 0; index < Meshes.length; index++) {
-                BABYLON.SceneLoader.ImportMesh(null, "../assets/", //Local
-                //"https://xsandre-l.github.io/PiLifePlatform/assets/",//non-Local
+                BABYLON.SceneLoader.ImportMesh(null, 
+                //"../assets/",//Local
+                "https://xsandre-l.github.io/PiLifePlatform/assets/", //non-Local
                 P_meshName[index], scene, function (meshes, materials) {
                     var _a;
                     return __awaiter(this, void 0, void 0, function* () {

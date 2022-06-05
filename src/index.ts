@@ -337,8 +337,8 @@ class piLifeApp {
 
                 BABYLON.SceneLoader.ImportMesh(
                     null,
-                    "../assets/",//Local
-                    //"https://xsandre-l.github.io/PiLifePlatform/assets/",//non-Local
+                    //"../assets/",//Local
+                    "https://xsandre-l.github.io/PiLifePlatform/assets/",//non-Local
                     P_meshName[index],
                     scene,
                     async function (
