@@ -1,18 +1,117 @@
 //import * as BABYLON from 'babylonjs';
 //import { Engine } from "babylonjs";
 //import { Scene } from 'babylonjs';
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 const path = 'https://xsandre-l.github.io/PiLifePlatform/';
 // const path = '../';
 const Departments = {
+    Info: {
+        pos: { x: -33.822943, z: 18.926317 },
+    },
+    Parking_DayVisitors: {
+        pos: { x: -33.822252, z: 18.926559 },
+    },
+    Parking_Hotel: {
+        pos: { x: -33.824077, z: 18.925289 },
+    },
+    Bakery: {
+        pos: { x: -33.823777, z: 18.926940 },
+    },
+    FarmShop: {
+        pos: { x: -33.823525, z: 18.927064 },
+    },
+    Butchery: {
+        pos: { x: -33.823520, z: 18.926908 },
+    },
+    MilkRoom: {},
+    SweatRoom: {},
+    Pantry: {},
+    FunctionsAndEvents: {
+        pos: { x: -33.823690, z: 18.928110 },
+    },
+    ScentRoom: {},
+    Cellars: {},
+    HotelReception: {},
+    OldBullfrog: {},
+    GuavaAvenue: {},
+    OliveAndCitrusOrchard: {},
+    CycadCollection: {},
+    WeaverNests: {
+        pos: { x: -33.824803, z: 18.926983 },
+    },
+    Ducks: {
+        pos: { x: -33.824893, z: 18.926829 },
+    },
+    Chickens: {
+        pos: { x: -33.824998, z: 18.926711 },
+    },
+    Berries: {
+        pos: { x: -33.825094, z: 18.926572 },
+    },
+    StreamAndCliviaWalk: {
+        pos: { x: -33.825692, z: 18.926209 },
+    },
+    PricklyPearMaze: {
+        pos: { x: -33.825277, z: 18.926287 },
+    },
+    CitrusBlock: {
+        pos: { x: -33.825025, z: 18.926053 },
+    },
+    EdibleFlowerGarden: {
+        pos: { x: -33.824769, z: 18.925812 },
+    },
+    CalabashSnail: {
+        pos: { x: -33.824450, z: 18.926295 },
+    },
+    VegetableGarden: {
+        pos: { x: -33.824711, z: 18.926531 },
+    },
+    StoneFruit: {
+        pos: { x: -33.825424, z: 18.925439 },
+    },
+    SubtropicalFruit: {
+        pos: { x: -33.825781, z: 18.925817 },
+    },
+    PuffAdder: {
+        pos: { x: -33.826175, z: 18.925222 },
+    },
+    MulberryMeditation: {
+        pos: { x: -33.826017, z: 18.925155 },
+    },
+    BeesAndMacadamias: {
+        pos: { x: -33.826117, z: 18.925010 },
+    },
+    Nursery: {
+        pos: { x: -33.826307, z: 18.924728 },
+    },
+    GardenOfTheSan: {
+        pos: { x: -33.825823, z: 18.924846 },
+    },
+    Bathrooms: {
+        pos: { x: -33.825531, z: 18.924584 },
+    },
+    SpaEntrance: {
+        pos: { x: -33.825549, z: 18.924189 },
+    },
+    GreenhouseRestaurant: {
+        pos: { x: -33.825649, z: 18.924088 },
+    },
+    HealingGarden: {
+        pos: { x: -33.825932, z: 18.924012 },
+    },
+    CliviaHouse: {
+        pos: { x: -33.826581, z: 18.925027 },
+    },
+    SucculentHouse: {
+        pos: { x: -33.826719, z: 18.924869 },
+    },
+    SpiceHouse: {
+        pos: { x: -33.826187, z: 18.924316 },
+    },
+    WelwitschiaRockery: {},
+    KitchenGarden: {},
+    WaterBlommetjiePond: {},
+    RicePaddy: {},
+    Wetland: {},
     Babel: {
         pos: { x: -33.823756, z: 18.926544 },
         iconPath: `${path}assets/textures/Restoraunt Icon.png`
@@ -46,6 +145,7 @@ const LF = {
     nx: 4500,
     ny: -2287
 };
+// RB -33.82
 let CURR_X;
 let CURR_Y;
 export function translateCoordinates(lat, long) {
@@ -53,19 +153,19 @@ export function translateCoordinates(lat, long) {
     // let y: number = 0;
     const dist_LB_RB = getDistance(LB.x, LB.y, RB.x, RB.y);
     const dist_LB_RB_N = getDistance(LB.nx, LB.ny, RB.nx, RB.ny);
-    console.log('dist 1 old - ' + dist_LB_RB);
-    console.log('dist1 - ' + dist_LB_RB_N);
+    //console.log('dist 1 old - ' + dist_LB_RB);
+    // console.log('dist1 - ' + dist_LB_RB_N)
     const side1Change = dist_LB_RB_N / dist_LB_RB;
-    console.log('Change ' + side1Change);
+    //console.log('Change ' + side1Change)
     //  get distance between curr and2 points
     const dist_P_LB = getDistance(lat, long, LB.x, LB.y);
     const dist_P_RB = getDistance(lat, long, RB.x, RB.y);
-    console.log('old dist2 - ' + dist_P_LB);
-    console.log('old dist3 - ' + dist_P_RB);
+    //console.log('old dist2 - ' + dist_P_LB);
+    //console.log('old dist3 - ' + dist_P_RB);
     const tryDist1 = dist_P_LB * side1Change;
     const tryDist2 = (dist_P_RB * side1Change);
-    console.log('new dist2 - ' + tryDist1);
-    console.log('new dist2 - ' + tryDist2);
+    //console.log('new dist2 - ' + tryDist1)
+    //console.log('new dist2 - ' + tryDist2)
     //const Aang = Math.acos(((Math.pow(dist_LB_RB_N,2) + Math.pow(tryDist1,2) - Math.pow(tryDist2 , 2)) / (2 * dist_LB_RB_N * tryDist1)));
     const Aang = Math.acos(((Math.pow(dist_LB_RB, 2) + Math.pow(dist_P_LB, 2) - Math.pow(dist_P_RB, 2)) / (2 * dist_LB_RB * dist_P_LB)));
     //console.log(ang);
@@ -73,9 +173,9 @@ export function translateCoordinates(lat, long) {
     // C^2 = b^2 + c^2 -2(b)(c)cosA
     // acos( (c^2 + b^2 - a^2) / (2(b)(c))) = A
     // Math.acos((dist_LB_RB_N**2+tryDist1**2-tryDist2**2) / (2*dist_LB_RB_N*tryDist1))
-    console.log(CURR_X + '  ' + CURR_Y);
-    console.log('SIDE 1 :' + getDistance(CURR_X, CURR_Y, LB.nx, LB.ny));
-    console.log('SIDE 2 :' + getDistance(CURR_X, CURR_Y, RB.nx, RB.ny));
+    //console.log(CURR_X + '  ' + CURR_Y);
+    //console.log('SIDE 1 :' + getDistance(CURR_X, CURR_Y, LB.nx, LB.ny));
+    //console.log('SIDE 2 :' + getDistance(CURR_X, CURR_Y, RB.nx, RB.ny));
     //(points.Px > 0 ? points.Px / 1.4 : points.Px)
     //+ (1 * (tryDist1 < tryDist2 ? tryDist1 / 2.9 : tryDist2 / 2.9))
     return { x: (points.Px > 0 ? points.Px / 1.4 : points.Px), z: points.Py + (1 * (tryDist1 < tryDist2 ? tryDist1 / 2.9 : tryDist2 / 2.9)) };
@@ -85,22 +185,22 @@ export function translateCoordinates(lat, long) {
  *
  * @param LBx - x coordinate value of first known point
  * @param LBy - y coordinate value of first known point
- * @param Cx - x coordinate value of second known point
- * @param Cy - y coordinate value of second known point
+ * @param RBx - x coordinate value of second known point
+ * @param RBy - y coordinate value of second known point
  * @param b - the length of side b
  * @param c - the length of side c
  * @param A - the angle of corner A
  * @param alt - set to true to return the alternative solution.
  * @returns {{Bx: *, By: *}}
  */
-function calculate_third_point(LBx, LBy, Cx, Cy, b, c, A, alt) {
-    console.log(LBx + ' ' + LBy + ' ' + Cx + ' ' + Cy + ' ' + b + ' ' + c + ' ' + A + ' ' + alt);
+function calculate_third_point(LBx, LBy, RBx, RBy, b, c, A, alt) {
+    //console.log(LBx + ' ' + LBy + ' ' + RBx + ' ' + RBy + ' ' + b + ' ' + c + ' ' + A + ' ' + alt)
     var Bx;
     var By;
     alt = typeof alt === 'undefined' ? false : alt;
     //unit vector
-    let uACx = (Cx - LBx) / b;
-    let uACy = (Cy - LBy) / b;
+    let uACx = (RBx - LBx) / b; // actual coords per new base unit
+    let uACy = (RBy - LBy) / b;
     if (alt) {
         //rotated vector
         let uABx = uACx * Math.cos(A) - uACy * Math.sin(A);
@@ -174,12 +274,12 @@ class piLifeApp {
         let followCamera;
         let flyCamera;
         let deviceSourceManager = new BABYLON.DeviceSourceManager(scene.getEngine());
-        var createDefaultEngine = () => __awaiter(this, void 0, void 0, function* () {
+        var createDefaultEngine = async () => {
             return new BABYLON.Engine(canvas, true);
             // var EN = new BABYLON.WebGPUEngine(canvas);
             // await EN.initAsync();
             // return EN;
-        });
+        };
         var createDefaultScene = function (scene) {
             // Setup the scene
             //scene = new BABYLON.Scene(engine);
@@ -283,18 +383,42 @@ class piLifeApp {
                 BABYLON.SceneLoader.ImportMesh(null, 
                 //"../assets/",//Local
                 "https://xsandre-l.github.io/PiLifePlatform/assets/", //non-Local
-                P_meshName[index], scene, function (meshes, materials) {
+                P_meshName[index], scene, async function (meshes, materials) {
                     var _a;
-                    return __awaiter(this, void 0, void 0, function* () {
-                        //scene.createDefaultCameraOrLight(true);
-                        (_a = scene._activeCamera) === null || _a === void 0 ? void 0 : _a.attachControl(Canvas, true);
-                        if (index == 1) {
-                            const babel_3D_Pos = translateCoordinates(Departments.Babel.pos.x, Departments.Babel.pos.z);
-                            createDepartmentPin(meshes[0], new BABYLON.Vector3(babel_3D_Pos.x, 0, babel_3D_Pos.z), Departments.Babel.iconPath, scene);
-                            const glaskas_3D_Pos = translateCoordinates(Departments.GlasKas.pos.x, Departments.GlasKas.pos.z);
-                            createDepartmentPin(meshes[0], new BABYLON.Vector3(glaskas_3D_Pos.x, 0, glaskas_3D_Pos.z), Departments.GlasKas.iconPath, scene);
+                    //scene.createDefaultCameraOrLight(true);
+                    (_a = scene._activeCamera) === null || _a === void 0 ? void 0 : _a.attachControl(Canvas, true);
+                    if (index == 1) {
+                        // for(let x in Departments){
+                        //     console.log(x);
+                        //     console.log(Object.values(Departments))
+                        // }
+                        var vals = Object.values(Departments);
+                        // console.log(vals);
+                        for (let depo in vals) {
+                            if (vals[depo].pos) {
+                                const { x, z } = vals[depo].pos;
+                                //console.log(x + ' ' + z);
+                                if (x) {
+                                    const pos = translateCoordinates(x, z);
+                                    createDepartmentPin(meshes[0], new BABYLON.Vector3(pos.x, 0, pos.z), Departments.Babel.iconPath, scene);
+                                }
+                            }
                         }
-                    });
+                        // var vals = Object.keys(Departments).map(function(key) {
+                        //     return Departments[];
+                        // });
+                        // Object.keys(Departments).forEach((depo,i,value)=>{
+                        //     console.log(`${depo} ++ ${value[i]}`);
+                        //     // Object.keys(depo).forEach((property)=>{
+                        //     //     console.log(property);
+                        //     // })
+                        //     //const depoPos = translateCoordinates(Departments[depo].pos.x, )
+                        // })
+                        // const babel_3D_Pos = translateCoordinates(Departments.Babel.pos.x, Departments.Babel.pos.z);
+                        // createDepartmentPin(meshes[0], new BABYLON.Vector3(babel_3D_Pos.x, 0, babel_3D_Pos.z), Departments.Babel.iconPath, scene);
+                        // const glaskas_3D_Pos = translateCoordinates(Departments.GlasKas.pos.x, Departments.GlasKas.pos.z);
+                        // createDepartmentPin(meshes[0], new BABYLON.Vector3(glaskas_3D_Pos.x, 0, glaskas_3D_Pos.z), Departments.GlasKas.iconPath, scene);
+                    }
                 });
             }
             // Post Process [to be moved into ./Rendering/post-process]
@@ -320,25 +444,23 @@ class piLifeApp {
             setInterval(RunLoop, 16);
             return scene;
         };
-        function createDepartmentPin(pinMesh, pinPosition, texturePath, scene) {
-            return __awaiter(this, void 0, void 0, function* () {
-                let newPin = yield pinMesh.clone("newPin");
-                newPin.position = new BABYLON.Vector3(pinPosition.x, 100, pinPosition.z);
-                newPin.scaling = new BABYLON.Vector3(100, 100, 100);
-                let BabelRestoraunt_Icon = BABYLON.MeshBuilder.CreatePlane('Icon', { height: 150, width: 100 }, scene);
-                let BabelIconMat = new BABYLON.PBRMaterial('IconMat', scene);
-                // let BabelIconTex = 
-                BabelIconMat.albedoTexture = new BABYLON.Texture(texturePath, scene, true);
-                BabelIconMat.albedoColor = new BABYLON.Color3(0.5, 0.1, 1);
-                BabelIconMat.opacityTexture = new BABYLON.Texture(texturePath, scene, true);
-                BabelIconMat.transparencyMode = 2;
-                BabelIconMat.metallic = 0;
-                BabelIconMat.roughness = 100;
-                BabelRestoraunt_Icon.material = BabelIconMat;
-                BabelIconMat.needAlphaTesting();
-                BabelRestoraunt_Icon.billboardMode = BABYLON.AbstractMesh.BILLBOARDMODE_ALL;
-                BabelRestoraunt_Icon.position = new BABYLON.Vector3(pinPosition.x, 400, pinPosition.z);
-            });
+        async function createDepartmentPin(pinMesh, pinPosition, texturePath, scene) {
+            let newPin = await pinMesh.clone("newPin");
+            newPin.position = new BABYLON.Vector3(pinPosition.x, 100, pinPosition.z);
+            newPin.scaling = new BABYLON.Vector3(100, 100, 100);
+            let BabelRestoraunt_Icon = BABYLON.MeshBuilder.CreatePlane('Icon', { height: 150, width: 100 }, scene);
+            let BabelIconMat = new BABYLON.PBRMaterial('IconMat', scene);
+            // let BabelIconTex = 
+            BabelIconMat.albedoTexture = new BABYLON.Texture(texturePath, scene, true);
+            BabelIconMat.albedoColor = new BABYLON.Color3(0.5, 0.1, 1);
+            BabelIconMat.opacityTexture = new BABYLON.Texture(texturePath, scene, true);
+            BabelIconMat.transparencyMode = 2;
+            BabelIconMat.metallic = 0;
+            BabelIconMat.roughness = 100;
+            BabelRestoraunt_Icon.material = BabelIconMat;
+            BabelIconMat.needAlphaTesting();
+            BabelRestoraunt_Icon.billboardMode = BABYLON.AbstractMesh.BILLBOARDMODE_ALL;
+            BabelRestoraunt_Icon.position = new BABYLON.Vector3(pinPosition.x, 400, pinPosition.z);
         }
         createDefaultEngine();
         if (!engine)
