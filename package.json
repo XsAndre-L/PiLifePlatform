@@ -21,6 +21,7 @@
   "dependencies": {
     "@babylonjs/core": "^5.8.0",
     "babylonjs": "^5.8.0",
-    "ts-node": "^10.8.0"
+    "ts-node": "^10.8.0",
+    "xhr2": "^0.2.1"
   }
 }

@@ -160,22 +160,15 @@ export function translateCoordinates(lat, long) {
     //  get distance between curr and2 points
     const dist_P_LB = getDistance(lat, long, LB.x, LB.y);
     const dist_P_RB = getDistance(lat, long, RB.x, RB.y);
-    //console.log('old dist2 - ' + dist_P_LB);
-    //console.log('old dist3 - ' + dist_P_RB);
     const tryDist1 = dist_P_LB * side1Change;
     const tryDist2 = (dist_P_RB * side1Change);
-    //console.log('new dist2 - ' + tryDist1)
-    //console.log('new dist2 - ' + tryDist2)
     //const Aang = Math.acos(((Math.pow(dist_LB_RB_N,2) + Math.pow(tryDist1,2) - Math.pow(tryDist2 , 2)) / (2 * dist_LB_RB_N * tryDist1)));
-    const Aang = Math.acos(((Math.pow(dist_LB_RB, 2) + Math.pow(dist_P_LB, 2) - Math.pow(dist_P_RB, 2)) / (2 * dist_LB_RB * dist_P_LB)));
+    const Aang = Math.acos(((dist_LB_RB ** 2 + dist_P_LB ** 2 - dist_P_RB ** 2) / (2 * dist_LB_RB * dist_P_LB)));
     //console.log(ang);
     const points = calculate_third_point(LB.nx, LB.ny, RB.nx, RB.ny, dist_LB_RB_N, tryDist1, Aang, false);
     // C^2 = b^2 + c^2 -2(b)(c)cosA
     // acos( (c^2 + b^2 - a^2) / (2(b)(c))) = A
     // Math.acos((dist_LB_RB_N**2+tryDist1**2-tryDist2**2) / (2*dist_LB_RB_N*tryDist1))
-    //console.log(CURR_X + '  ' + CURR_Y);
-    //console.log('SIDE 1 :' + getDistance(CURR_X, CURR_Y, LB.nx, LB.ny));
-    //console.log('SIDE 2 :' + getDistance(CURR_X, CURR_Y, RB.nx, RB.ny));
     //(points.Px > 0 ? points.Px / 1.4 : points.Px)
     //+ (1 * (tryDist1 < tryDist2 ? tryDist1 / 2.9 : tryDist2 / 2.9))
     return { x: (points.Px > 0 ? points.Px / 1.4 : points.Px), z: points.Py + (1 * (tryDist1 < tryDist2 ? tryDist1 / 2.9 : tryDist2 / 2.9)) };
@@ -219,15 +212,6 @@ function calculate_third_point(LBx, LBy, RBx, RBy, b, c, A, alt) {
     }
     return { Px: Bx, Py: By };
 }
-// /**
-//  * Convert degrees to radians.
-//  *
-//  * @param angle
-//  * @returns {number}
-//  */
-//  function toRadians (angle: number) {
-//     return angle * (Math.PI / 180);
-// }
 function getDistance(x1, y1, x2, y2) {
     let y = x2 - x1;
     let x = y2 - y1;
@@ -275,10 +259,17 @@ class piLifeApp {
         let flyCamera;
         let deviceSourceManager = new BABYLON.DeviceSourceManager(scene.getEngine());
         var createDefaultEngine = async () => {
-            return new BABYLON.Engine(canvas, true);
-            // var EN = new BABYLON.WebGPUEngine(canvas);
-            // await EN.initAsync();
-            // return EN;
+            // 
+            const webGPUSupported = await BABYLON.WebGPUEngine.IsSupportedAsync;
+            if (false) {
+                const engine = new BABYLON.WebGPUEngine(canvas, { antialiasing: true });
+                await engine.initAsync();
+                return engine;
+            }
+            else {
+                console.log("WebGPU Not Supported. Defaulted To WebGL");
+                return new BABYLON.Engine(canvas, true);
+            }
         };
         var createDefaultScene = function (scene) {
             // Setup the scene
@@ -380,7 +371,7 @@ class piLifeApp {
             // Default intensity is 1. Let's dim the light a small amount
             light.intensity = 0.7;
             for (let index = 0; index < Meshes.length; index++) {
-                BABYLON.SceneLoader.ImportMesh(null, 
+                BABYLON.SceneLoader.ImportMesh("", 
                 //"../assets/",//Local
                 "https://xsandre-l.github.io/PiLifePlatform/assets/", //non-Local
                 P_meshName[index], scene, async function (meshes, materials) {
@@ -404,32 +395,25 @@ class piLifeApp {
                                 }
                             }
                         }
-                        // var vals = Object.keys(Departments).map(function(key) {
-                        //     return Departments[];
-                        // });
-                        // Object.keys(Departments).forEach((depo,i,value)=>{
-                        //     console.log(`${depo} ++ ${value[i]}`);
-                        //     // Object.keys(depo).forEach((property)=>{
-                        //     //     console.log(property);
-                        //     // })
-                        //     //const depoPos = translateCoordinates(Departments[depo].pos.x, )
-                        // })
-                        // const babel_3D_Pos = translateCoordinates(Departments.Babel.pos.x, Departments.Babel.pos.z);
-                        // createDepartmentPin(meshes[0], new BABYLON.Vector3(babel_3D_Pos.x, 0, babel_3D_Pos.z), Departments.Babel.iconPath, scene);
-                        // const glaskas_3D_Pos = translateCoordinates(Departments.GlasKas.pos.x, Departments.GlasKas.pos.z);
-                        // createDepartmentPin(meshes[0], new BABYLON.Vector3(glaskas_3D_Pos.x, 0, glaskas_3D_Pos.z), Departments.GlasKas.iconPath, scene);
                     }
                 });
             }
-            // Post Process [to be moved into ./Rendering/post-process]
-            // var motionblur = new BABYLON.MotionBlurPostProcess(
-            //     "mb", // The name of the effect.
-            //     scene, // The scene containing the objects to blur according to their velocity.
-            //     1.0, // The required width/height ratio to downsize to before computing the render pass.
-            //     followCamera // The followCamera to apply the render pass to.
-            // );
-            // motionblur.motionStrength = 1.2;
-            //----
+            var pipeline = new BABYLON.DefaultRenderingPipeline("defaultPipeline", // The name of the pipeline
+            true, // Do you want the pipeline to use HDR texture?
+            scene, // The scene instance
+            [followCamera] // The list of cameras to be attached to
+            );
+            pipeline.samples = 4;
+            pipeline.fxaaEnabled = true;
+            pipeline.grainEnabled = true;
+            pipeline.grain.intensity = 2;
+            //Post Process [to be moved into ./Rendering/post-process]
+            var motionblur = new BABYLON.MotionBlurPostProcess("mb", // The name of the effect.
+            scene, // The scene containing the objects to blur according to their velocity.
+            1.0, // The required width/height ratio to downsize to before computing the render pass.
+            followCamera // The followCamera to apply the render pass to.
+            );
+            motionblur.motionStrength = 1.2;
             let lines = drawDashedLine([new BABYLON.Vector3(LB.nx, 0, LB.ny), new BABYLON.Vector3(RB.nx, 0, RB.ny), new BABYLON.Vector3(point.position.x, 1, point.position.z), new BABYLON.Vector3(LB.nx, 0, LB.ny)], scene);
             const RunLoop = () => {
                 //point.translate(new BABYLON.Vector3(1, 0, 0), BABYLON.Space.WORLD);
@@ -451,9 +435,9 @@ class piLifeApp {
             let BabelRestoraunt_Icon = BABYLON.MeshBuilder.CreatePlane('Icon', { height: 150, width: 100 }, scene);
             let BabelIconMat = new BABYLON.PBRMaterial('IconMat', scene);
             // let BabelIconTex = 
-            BabelIconMat.albedoTexture = new BABYLON.Texture(texturePath, scene, true);
+            BabelIconMat.albedoTexture = await new BABYLON.Texture(texturePath, scene, true);
             BabelIconMat.albedoColor = new BABYLON.Color3(0.5, 0.1, 1);
-            BabelIconMat.opacityTexture = new BABYLON.Texture(texturePath, scene, true);
+            BabelIconMat.opacityTexture = await new BABYLON.Texture(texturePath, scene, true);
             BabelIconMat.transparencyMode = 2;
             BabelIconMat.metallic = 0;
             BabelIconMat.roughness = 100;

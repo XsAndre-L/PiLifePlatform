@@ -7,142 +7,142 @@ const path = 'https://xsandre-l.github.io/PiLifePlatform/';
 // const path = '../';
 
 const Departments: Object = {
-    Info:{
+    Info: {
         pos: { x: -33.822943, z: 18.926317 },
     },
-    Parking_DayVisitors:{
-        pos: { x: -33.822252, z: 18.926559},
+    Parking_DayVisitors: {
+        pos: { x: -33.822252, z: 18.926559 },
     },
-    Parking_Hotel:{
-        pos: { x: -33.824077, z: 18.925289},
+    Parking_Hotel: {
+        pos: { x: -33.824077, z: 18.925289 },
     },
     Bakery: {
-        pos: { x: -33.823777, z: 18.926940},
+        pos: { x: -33.823777, z: 18.926940 },
     },
-    FarmShop:{
-        pos: { x: -33.823525, z: 18.927064},
+    FarmShop: {
+        pos: { x: -33.823525, z: 18.927064 },
     },
-    Butchery:{
-        pos: { x: -33.823520, z: 18.926908},
+    Butchery: {
+        pos: { x: -33.823520, z: 18.926908 },
     },
-    MilkRoom:{
+    MilkRoom: {
 
     },
-    SweatRoom:{
+    SweatRoom: {
 
     },
-    Pantry:{
+    Pantry: {
 
     },
-    FunctionsAndEvents:{
+    FunctionsAndEvents: {
         pos: { x: -33.823690, z: 18.928110 },
     },
     ScentRoom: {
 
     },
-    Cellars:{
+    Cellars: {
 
     },
-    HotelReception:{
+    HotelReception: {
 
     },
-    OldBullfrog:{
+    OldBullfrog: {
 
     },
-    GuavaAvenue:{
+    GuavaAvenue: {
 
     },
-    OliveAndCitrusOrchard:{
+    OliveAndCitrusOrchard: {
 
     },
-    CycadCollection:{
+    CycadCollection: {
 
     },
-    WeaverNests:{
-        pos: {x: -33.824803, z:18.926983},
+    WeaverNests: {
+        pos: { x: -33.824803, z: 18.926983 },
     },
-    Ducks:{
-        pos: {x: -33.824893, z:18.926829},
+    Ducks: {
+        pos: { x: -33.824893, z: 18.926829 },
     },
-    Chickens:{
-        pos: {x: -33.824998, z:18.926711},
+    Chickens: {
+        pos: { x: -33.824998, z: 18.926711 },
     },
-    Berries:{
-        pos: {x: -33.825094, z:18.926572},
+    Berries: {
+        pos: { x: -33.825094, z: 18.926572 },
     },
-    StreamAndCliviaWalk:{
-        pos: {x: -33.825692, z:18.926209},
+    StreamAndCliviaWalk: {
+        pos: { x: -33.825692, z: 18.926209 },
     },
-    PricklyPearMaze:{
-        pos: {x: -33.825277, z:18.926287},
+    PricklyPearMaze: {
+        pos: { x: -33.825277, z: 18.926287 },
     },
-    CitrusBlock:{
-        pos: {x: -33.825025, z:18.926053},
+    CitrusBlock: {
+        pos: { x: -33.825025, z: 18.926053 },
     },
-    EdibleFlowerGarden:{
-        pos: {x: -33.824769, z:18.925812},
+    EdibleFlowerGarden: {
+        pos: { x: -33.824769, z: 18.925812 },
     },
-    CalabashSnail:{
-        pos: {x: -33.824450, z:18.926295},
+    CalabashSnail: {
+        pos: { x: -33.824450, z: 18.926295 },
     },
-    VegetableGarden:{
-        pos: {x: -33.824711, z:18.926531},
+    VegetableGarden: {
+        pos: { x: -33.824711, z: 18.926531 },
     },
-    StoneFruit:{
-        pos: {x: -33.825424, z:18.925439},
+    StoneFruit: {
+        pos: { x: -33.825424, z: 18.925439 },
     },
-    SubtropicalFruit:{
-        pos: {x: -33.825781, z:18.925817},
+    SubtropicalFruit: {
+        pos: { x: -33.825781, z: 18.925817 },
     },
-    PuffAdder:{
-        pos: {x: -33.826175, z:18.925222},
+    PuffAdder: {
+        pos: { x: -33.826175, z: 18.925222 },
     },
-    MulberryMeditation:{
-        pos: {x: -33.826017, z:18.925155},
+    MulberryMeditation: {
+        pos: { x: -33.826017, z: 18.925155 },
     },
-    BeesAndMacadamias:{
-        pos: {x: -33.826117, z:18.925010},
+    BeesAndMacadamias: {
+        pos: { x: -33.826117, z: 18.925010 },
     },
-    Nursery:{
-        pos: {x: -33.826307, z:18.924728},
+    Nursery: {
+        pos: { x: -33.826307, z: 18.924728 },
     },
-    GardenOfTheSan:{
-        pos: {x: -33.825823, z:18.924846},
+    GardenOfTheSan: {
+        pos: { x: -33.825823, z: 18.924846 },
     },
-    Bathrooms:{
-        pos: {x: -33.825531, z:18.924584},
+    Bathrooms: {
+        pos: { x: -33.825531, z: 18.924584 },
     },
-    SpaEntrance:{
-        pos: {x: -33.825549, z:18.924189},
+    SpaEntrance: {
+        pos: { x: -33.825549, z: 18.924189 },
     },
-    GreenhouseRestaurant:{
-        pos: { x: -33.825649, z: 18.924088},
+    GreenhouseRestaurant: {
+        pos: { x: -33.825649, z: 18.924088 },
     },
-    HealingGarden:{
-        pos: { x: -33.825932, z: 18.924012},
+    HealingGarden: {
+        pos: { x: -33.825932, z: 18.924012 },
     },
-    CliviaHouse:{
-        pos: { x: -33.826581, z: 18.925027},
+    CliviaHouse: {
+        pos: { x: -33.826581, z: 18.925027 },
     },
-    SucculentHouse:{
-        pos: { x: -33.826719, z: 18.924869},
+    SucculentHouse: {
+        pos: { x: -33.826719, z: 18.924869 },
     },
-    SpiceHouse:{
-        pos: { x: -33.826187, z: 18.924316},
+    SpiceHouse: {
+        pos: { x: -33.826187, z: 18.924316 },
     },
-    WelwitschiaRockery:{
+    WelwitschiaRockery: {
 
     },
-    KitchenGarden:{
+    KitchenGarden: {
 
     },
-    WaterBlommetjiePond:{
+    WaterBlommetjiePond: {
 
     },
-    RicePaddy:{
+    RicePaddy: {
 
     },
-    Wetland:{
+    Wetland: {
 
     },
     Babel: {
@@ -193,7 +193,7 @@ export function translateCoordinates(lat: number, long: number) {
     const dist_LB_RB = getDistance(LB.x, LB.y, RB.x, RB.y);
     const dist_LB_RB_N = getDistance(LB.nx, LB.ny, RB.nx, RB.ny);
     //console.log('dist 1 old - ' + dist_LB_RB);
-   // console.log('dist1 - ' + dist_LB_RB_N)
+    // console.log('dist1 - ' + dist_LB_RB_N)
 
     const side1Change = dist_LB_RB_N / dist_LB_RB;
     //console.log('Change ' + side1Change)
@@ -202,19 +202,15 @@ export function translateCoordinates(lat: number, long: number) {
     //  get distance between curr and2 points
     const dist_P_LB = getDistance(lat, long, LB.x, LB.y);
     const dist_P_RB = getDistance(lat, long, RB.x, RB.y);
-    //console.log('old dist2 - ' + dist_P_LB);
-    //console.log('old dist3 - ' + dist_P_RB);
 
 
     const tryDist1 = dist_P_LB * side1Change;
     const tryDist2 = (dist_P_RB * side1Change);
 
-    //console.log('new dist2 - ' + tryDist1)
-    //console.log('new dist2 - ' + tryDist2)
 
 
     //const Aang = Math.acos(((Math.pow(dist_LB_RB_N,2) + Math.pow(tryDist1,2) - Math.pow(tryDist2 , 2)) / (2 * dist_LB_RB_N * tryDist1)));
-    const Aang = Math.acos(((Math.pow(dist_LB_RB, 2) + Math.pow(dist_P_LB, 2) - Math.pow(dist_P_RB, 2)) / (2 * dist_LB_RB * dist_P_LB)));
+    const Aang = Math.acos(((dist_LB_RB ** 2 + dist_P_LB ** 2 - dist_P_RB ** 2) / (2 * dist_LB_RB * dist_P_LB)));
     //console.log(ang);
     const points = calculate_third_point(LB.nx, LB.ny, RB.nx, RB.ny, dist_LB_RB_N, tryDist1, Aang, false);
 
@@ -226,14 +222,12 @@ export function translateCoordinates(lat: number, long: number) {
     // Math.acos((dist_LB_RB_N**2+tryDist1**2-tryDist2**2) / (2*dist_LB_RB_N*tryDist1))
 
 
-    //console.log(CURR_X + '  ' + CURR_Y);
-
-    //console.log('SIDE 1 :' + getDistance(CURR_X, CURR_Y, LB.nx, LB.ny));
-    //console.log('SIDE 2 :' + getDistance(CURR_X, CURR_Y, RB.nx, RB.ny));
     //(points.Px > 0 ? points.Px / 1.4 : points.Px)
     //+ (1 * (tryDist1 < tryDist2 ? tryDist1 / 2.9 : tryDist2 / 2.9))
-    return { x: (points.Px > 0 ? points.Px / 1.4 : points.Px), z: points.Py  + (1 * (tryDist1 < tryDist2 ? tryDist1 / 2.9 : tryDist2 / 2.9))}
+    return { x: (points.Px > 0 ? points.Px / 1.4 : points.Px), z: points.Py + (1 * (tryDist1 < tryDist2 ? tryDist1 / 2.9 : tryDist2 / 2.9)) }
 }
+
+
 
 /**
  * Find the coordinates for the third point of a triangle.
@@ -281,16 +275,7 @@ function calculate_third_point(LBx: number, LBy: number, RBx: number, RBy: numbe
 
     return { Px: Bx, Py: By };
 }
-// /**
-//  * Convert degrees to radians.
-//  *
-//  * @param angle
-//  * @returns {number}
-//  */
-//  function toRadians (angle: number) {
 
-//     return angle * (Math.PI / 180);
-// }
 
 function getDistance(x1: number, y1: number, x2: number, y2: number): number {
     let y = x2 - x1;
@@ -356,18 +341,26 @@ class piLifeApp {
         let deviceSourceManager = new BABYLON.DeviceSourceManager(scene.getEngine());
 
         var createDefaultEngine = async () => {
-            return new BABYLON.Engine(canvas, true);
+            // 
 
 
-            // var EN = new BABYLON.WebGPUEngine(canvas);
-            // await EN.initAsync();
-            // return EN;
+            const webGPUSupported = await BABYLON.WebGPUEngine.IsSupportedAsync;
+            if (false) {
+                const engine = new BABYLON.WebGPUEngine(canvas, {antialiasing: true});
+                await engine.initAsync();
+                return engine;
+            }else{
+                console.log("WebGPU Not Supported. Defaulted To WebGL");
+                return new BABYLON.Engine(canvas, true);
+            }
+
         };
 
         var createDefaultScene = function (scene: BABYLON.Scene) {
             // Setup the scene
             //scene = new BABYLON.Scene(engine);
             var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
+            
             return scene;
         };
 
@@ -393,7 +386,7 @@ class piLifeApp {
             var material0 = new BABYLON.StandardMaterial("mat0", scene);
             material0.diffuseColor = new BABYLON.Color3(255, 0, 0);
             point = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 40, segments: 32 }, myScene);
-            point.rotate(new BABYLON.Vector3(0,1,0), 1.5);
+            point.rotate(new BABYLON.Vector3(0, 1, 0), 1.5);
             point.material = material0;
 
             const leftFront = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 30, segments: 32 }, myScene);
@@ -433,7 +426,7 @@ class piLifeApp {
             followCamera.upperRotationOffsetLimit = 0;
             followCamera.lowerRotationOffsetLimit = 0;
             followCamera.rotationOffset = -440;
-          
+
 
             // followCamera.inverseRotationSpeed = 0.1;
             //followCamera.inputs.removeByType('ArcRotateCameraPointersInput');
@@ -493,7 +486,7 @@ class piLifeApp {
             for (let index = 0; index < Meshes.length; index++) {
 
                 BABYLON.SceneLoader.ImportMesh(
-                    null,
+                    "",
                     //"../assets/",//Local
                     "https://xsandre-l.github.io/PiLifePlatform/assets/",//non-Local
                     P_meshName[index],
@@ -509,60 +502,52 @@ class piLifeApp {
                             // for(let x in Departments){
                             //     console.log(x);
                             //     console.log(Object.values(Departments))
-                                
+
                             // }
 
                             var vals = Object.values(Departments);
                             // console.log(vals);
-                            for(let depo in vals){
-                                if(vals[depo].pos){
+                            for (let depo in vals) {
+                                if (vals[depo].pos) {
 
-                                    const {x,z} = vals[depo].pos;
+                                    const { x, z } = vals[depo].pos;
                                     //console.log(x + ' ' + z);
-                                    if(x){
-    
+                                    if (x) {
+
                                         const pos = translateCoordinates(x, z);
                                         createDepartmentPin(meshes[0], new BABYLON.Vector3(pos.x, 0, pos.z), Departments.Babel.iconPath, scene);
-                                        
+
                                     }
                                 }
                             }
-                            
-
-                            // var vals = Object.keys(Departments).map(function(key) {
-                            //     return Departments[];
-                            // });
-
-                            // Object.keys(Departments).forEach((depo,i,value)=>{
-                                
-                            //     console.log(`${depo} ++ ${value[i]}`);
-                            //     // Object.keys(depo).forEach((property)=>{
-                            //     //     console.log(property);
-                            //     // })
-                            //     //const depoPos = translateCoordinates(Departments[depo].pos.x, )
-                            // })
-                            
-                            // const babel_3D_Pos = translateCoordinates(Departments.Babel.pos.x, Departments.Babel.pos.z);
-                            // createDepartmentPin(meshes[0], new BABYLON.Vector3(babel_3D_Pos.x, 0, babel_3D_Pos.z), Departments.Babel.iconPath, scene);
-                            // const glaskas_3D_Pos = translateCoordinates(Departments.GlasKas.pos.x, Departments.GlasKas.pos.z);
-                            // createDepartmentPin(meshes[0], new BABYLON.Vector3(glaskas_3D_Pos.x, 0, glaskas_3D_Pos.z), Departments.GlasKas.iconPath, scene);
-
                         }
                     }
                 );
             }
 
 
+            var pipeline = new BABYLON.DefaultRenderingPipeline(
+                "defaultPipeline", // The name of the pipeline
+                true, // Do you want the pipeline to use HDR texture?
+                scene, // The scene instance
+                [followCamera] // The list of cameras to be attached to
+            );
+            pipeline.samples = 4;
+            pipeline.fxaaEnabled = true;
+         
+            pipeline.grainEnabled = true;
+            pipeline.grain.intensity = 2;
 
-            // Post Process [to be moved into ./Rendering/post-process]
-            // var motionblur = new BABYLON.MotionBlurPostProcess(
-            //     "mb", // The name of the effect.
-            //     scene, // The scene containing the objects to blur according to their velocity.
-            //     1.0, // The required width/height ratio to downsize to before computing the render pass.
-            //     followCamera // The followCamera to apply the render pass to.
-            // );
-            // motionblur.motionStrength = 1.2;
-            //----
+            //Post Process [to be moved into ./Rendering/post-process]
+            var motionblur = new BABYLON.MotionBlurPostProcess(
+                "mb", // The name of the effect.
+                scene, // The scene containing the objects to blur according to their velocity.
+                1.0, // The required width/height ratio to downsize to before computing the render pass.
+                followCamera // The followCamera to apply the render pass to.
+            );
+            motionblur.motionStrength = 1.2;
+
+
 
 
             let lines = drawDashedLine([new BABYLON.Vector3(LB.nx, 0, LB.ny), new BABYLON.Vector3(RB.nx, 0, RB.ny), new BABYLON.Vector3(point.position.x, 1, point.position.z), new BABYLON.Vector3(LB.nx, 0, LB.ny)], scene);
@@ -592,9 +577,9 @@ class piLifeApp {
             let BabelRestoraunt_Icon = BABYLON.MeshBuilder.CreatePlane('Icon', { height: 150, width: 100 }, scene);
             let BabelIconMat = new BABYLON.PBRMaterial('IconMat', scene);
             // let BabelIconTex = 
-            BabelIconMat.albedoTexture = new BABYLON.Texture(texturePath, scene, true);
+            BabelIconMat.albedoTexture = await new BABYLON.Texture(texturePath, scene, true);
             BabelIconMat.albedoColor = new BABYLON.Color3(0.5, 0.1, 1);
-            BabelIconMat.opacityTexture = new BABYLON.Texture(texturePath, scene, true);
+            BabelIconMat.opacityTexture = await new BABYLON.Texture(texturePath, scene, true);
             BabelIconMat.transparencyMode = 2;
             BabelIconMat.metallic = 0;
             BabelIconMat.roughness = 100;
