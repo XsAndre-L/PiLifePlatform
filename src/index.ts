@@ -95,7 +95,7 @@ const Departments: Object = {
         pos: { x: -33.825781, z: 18.925817 },
     },
     PuffAdder: {
-        pos: { x: -33.826175, z: 18.925222 },
+        pos: { x: -33.826285, z: 18.925169 },
     },
     MulberryMeditation: {
         pos: { x: -33.826017, z: 18.925155 },
@@ -155,29 +155,56 @@ const Departments: Object = {
     }
 }
 
+
+
+// const LB = {
+//     x: -33.826447,
+//     y: 18.924780,
+//     nx: -4500,
+//     ny: -2287
+// }
+// const RB = {
+//     x: -33.825517,
+//     y: 18.923640,
+//     nx: -4500,
+//     ny: 2287
+// }
+// const RF = {
+//     x: -33.823227,
+//     y: 18.927184,
+//     nx: 4500,
+//     ny: 2287
+// }
+// const LF = {
+//     x: -33.824221,
+//     y: 18.928252,
+//     nx: 4500,
+//     ny: -2287
+// }
+
 const LB = {
-    x: -33.826447,
-    y: 18.924780,
-    nx: -4500,
-    ny: -2287
+    x: -33.840022,
+    y: 18.936838,
+    nx: 3688,
+    ny: 51928
 }
 const RB = {
-    x: -33.825517,
-    y: 18.923640,
-    nx: -4500,
-    ny: 2287
+    x: -33.840022,
+    y: 18.910960,
+    nx: 56819,
+    ny: 9297
 }
 const RF = {
-    x: -33.823227,
-    y: 18.927184,
-    nx: 4500,
-    ny: 2287
+    x: -33.817955,
+    y: 18.910960,
+    nx: 14977,
+    ny: -46506
 }
 const LF = {
-    x: -33.824221,
-    y: 18.928252,
-    nx: 4500,
-    ny: -2287
+    x: -33.817955,
+    y: 18.936838,
+    nx: -41392,
+    ny: -1278
 }
 
 // RB -33.82
@@ -224,7 +251,11 @@ export function translateCoordinates(lat: number, long: number) {
 
     //(points.Px > 0 ? points.Px / 1.4 : points.Px)
     //+ (1 * (tryDist1 < tryDist2 ? tryDist1 / 2.9 : tryDist2 / 2.9))
-    return { x: (points.Px > 0 ? points.Px / 1.4 : points.Px), z: points.Py + (1 * (tryDist1 < tryDist2 ? tryDist1 / 2.9 : tryDist2 / 2.9)) }
+
+
+
+    // return { x: ((points.Px *-1) + 2100)/1.1, z: (((points.Py*-1) +3200) /1.1)}
+    return { x: (((points.Px *-1) +2100)/1.1) , z: points.Px > 0 ? (((points.Py*-1) +3200)/1.1) : (((points.Py*-1) +3500)/1.1)}
 }
 
 
@@ -370,15 +401,7 @@ class piLifeApp {
         var Meshes: BABYLON.Mesh[] = [mesh1, DepartmentPin];
         let P_meshName = ["Babylonstoren 3D Map.glb", "Department Pin.glb"]
 
-        function createFlyCam(scene: BABYLON.Scene) {
-            flyCamera = new BABYLON.FlyCamera('flycam', new BABYLON.Vector3(0, 4000, 0), scene);
-            flyCamera.setTarget(BABYLON.Vector3.Zero());
-            flyCamera.speed = 100;
-            flyCamera.rollCorrect = 5;
-            flyCamera.maxZ = 100000;
-            flyCamera.minZ = 100;
-            flyCamera.attachControl();
-        }
+        
 
         var createScene = function (myScene: BABYLON.Scene, Canvas: any) {
 
@@ -406,15 +429,11 @@ class piLifeApp {
 
 
             // followCamera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5000, -10), myScene);
+            
             followCamera = new BABYLON.FollowCamera("followcam", new BABYLON.Vector3(8000, 4000, 0), myScene);
-            // This targets the followCamera to scene origin
-            //followCamera.setTarget(BABYLON.Vector3.Zero());
-            // followCamera.inputs.clear();
             followCamera.lockedTarget = point;
             followCamera.heightOffset = 5000;
-            // followCamera.rotationOffset = 0;
             followCamera.noRotationConstraint = false;
-            // followCamera.attachControl();
             followCamera.radius = 1000;
             followCamera.maxZ = 100000;
             followCamera.minZ = 100;
@@ -427,6 +446,19 @@ class piLifeApp {
             followCamera.lowerRotationOffsetLimit = 0;
             followCamera.rotationOffset = -440;
 
+
+            // function createFlyCam(scene: BABYLON.Scene) {
+            //     flyCamera = new BABYLON.FlyCamera('flycam', new BABYLON.Vector3(0, 4000, 0), scene);
+            //     flyCamera.setTarget(BABYLON.Vector3.Zero());
+            //     flyCamera.speed = 100;
+            //     flyCamera.rollCorrect = 5;
+            //     flyCamera.maxZ = 100000;
+            //     flyCamera.minZ = 100;
+            //     flyCamera.attachControl();
+            // }
+
+            // createFlyCam(scene);
+            // scene.setActiveCameraById('flycam');
 
             // followCamera.inverseRotationSpeed = 0.1;
             //followCamera.inputs.removeByType('ArcRotateCameraPointersInput');
@@ -457,7 +489,7 @@ class piLifeApp {
                     } else {
                         console.log('FLYCAM')
                         camMode = false;
-                        createFlyCam(scene);
+                        //createFlyCam(scene);
                         scene.setActiveCameraById('flycam');
                     }
                 }
@@ -499,14 +531,8 @@ class piLifeApp {
                         scene._activeCamera?.attachControl(Canvas, true);
 
                         if (index == 1) {
-                            // for(let x in Departments){
-                            //     console.log(x);
-                            //     console.log(Object.values(Departments))
-
-                            // }
 
                             var vals = Object.values(Departments);
-                            // console.log(vals);
                             for (let depo in vals) {
                                 if (vals[depo].pos) {
 
@@ -572,7 +598,7 @@ class piLifeApp {
 
         async function createDepartmentPin(pinMesh: BABYLON.Mesh, pinPosition: BABYLON.Vector3, texturePath: string, scene: BABYLON.Scene) {
             let newPin = await pinMesh.clone("newPin");
-            newPin.position = new BABYLON.Vector3(pinPosition.x, 100, pinPosition.z);
+            newPin.position = new BABYLON.Vector3(pinPosition.x, 0, pinPosition.z);
             newPin.scaling = new BABYLON.Vector3(100, 100, 100);
             let BabelRestoraunt_Icon = BABYLON.MeshBuilder.CreatePlane('Icon', { height: 150, width: 100 }, scene);
             let BabelIconMat = new BABYLON.PBRMaterial('IconMat', scene);
@@ -587,7 +613,7 @@ class piLifeApp {
             BabelIconMat.needAlphaTesting();
 
             BabelRestoraunt_Icon.billboardMode = BABYLON.AbstractMesh.BILLBOARDMODE_ALL;
-            BabelRestoraunt_Icon.position = new BABYLON.Vector3(pinPosition.x, 400, pinPosition.z);
+            BabelRestoraunt_Icon.position = new BABYLON.Vector3(pinPosition.x, 300, pinPosition.z);
         }
 
 
