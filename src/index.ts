@@ -3,8 +3,8 @@
 //import { Engine } from "babylonjs";
 //import { Scene } from 'babylonjs';
 
-//const path = 'https://xsandre-l.github.io/PiLifePlatform/';
-const path = '../';
+const path = 'https://xsandre-l.github.io/PiLifePlatform/';
+//const path = '../';
 
 const Departments: Object = {
     Info: {
