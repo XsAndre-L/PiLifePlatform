@@ -3,27 +3,33 @@
 //import { Engine } from "babylonjs";
 //import { Scene } from 'babylonjs';
 
-const path = 'https://xsandre-l.github.io/PiLifePlatform/';
-// const path = '../';
+//const path = 'https://xsandre-l.github.io/PiLifePlatform/';
+const path = '../';
 
 const Departments: Object = {
     Info: {
         pos: { x: -33.822943, z: 18.926317 },
+        iconPath: `${path}assets/textures/Info_Icon.png`
     },
     Parking_DayVisitors: {
         pos: { x: -33.822252, z: 18.926559 },
+        iconPath: `${path}assets/textures/Parking_Day_Visitors_Icon.png`
     },
     Parking_Hotel: {
         pos: { x: -33.824077, z: 18.925289 },
+        iconPath: `${path}assets/textures/Parking_Day_Visitors_Icon.png`
     },
     Bakery: {
         pos: { x: -33.823777, z: 18.926940 },
+        iconPath: `${path}assets/textures/Bakery_Icon.png`
     },
     FarmShop: {
         pos: { x: -33.823525, z: 18.927064 },
+        iconPath: `${path}assets/textures/`
     },
     Butchery: {
         pos: { x: -33.823520, z: 18.926908 },
+        iconPath: `${path}assets/textures/`
     },
     MilkRoom: {
 
@@ -36,6 +42,7 @@ const Departments: Object = {
     },
     FunctionsAndEvents: {
         pos: { x: -33.823690, z: 18.928110 },
+        iconPath: `${path}assets/textures/`
     },
     ScentRoom: {
 
@@ -60,75 +67,99 @@ const Departments: Object = {
     },
     WeaverNests: {
         pos: { x: -33.824803, z: 18.926983 },
+        iconPath: `${path}assets/textures/`
     },
     Ducks: {
         pos: { x: -33.824893, z: 18.926829 },
+        iconPath: `${path}assets/textures/Ducks_Icon.png`
     },
     Chickens: {
         pos: { x: -33.824998, z: 18.926711 },
+        iconPath: `${path}assets/textures/Chickens_Icon.png`
     },
     Berries: {
         pos: { x: -33.825094, z: 18.926572 },
+        iconPath: `${path}assets/textures/`
     },
     StreamAndCliviaWalk: {
         pos: { x: -33.825692, z: 18.926209 },
+        iconPath: `${path}assets/textures/`
     },
     PricklyPearMaze: {
         pos: { x: -33.825277, z: 18.926287 },
+        iconPath: `${path}assets/textures/`
     },
     CitrusBlock: {
         pos: { x: -33.825025, z: 18.926053 },
+        iconPath: `${path}assets/textures/`
     },
     EdibleFlowerGarden: {
         pos: { x: -33.824769, z: 18.925812 },
+        iconPath: `${path}assets/textures/`
     },
     CalabashSnail: {
         pos: { x: -33.824450, z: 18.926295 },
+        iconPath: `${path}assets/textures/`
     },
     VegetableGarden: {
         pos: { x: -33.824711, z: 18.926531 },
+        iconPath: `${path}assets/textures/`
     },
     StoneFruit: {
         pos: { x: -33.825424, z: 18.925439 },
+        iconPath: `${path}assets/textures/`
     },
     SubtropicalFruit: {
         pos: { x: -33.825781, z: 18.925817 },
+        iconPath: `${path}assets/textures/`
     },
     PuffAdder: {
         pos: { x: -33.826285, z: 18.925169 },
+        iconPath: `${path}assets/textures/`
     },
     MulberryMeditation: {
         pos: { x: -33.826017, z: 18.925155 },
+        iconPath: `${path}assets/textures/`
     },
     BeesAndMacadamias: {
         pos: { x: -33.826117, z: 18.925010 },
+        iconPath: `${path}assets/textures/`
     },
     Nursery: {
         pos: { x: -33.826307, z: 18.924728 },
+        iconPath: `${path}assets/textures/`
     },
     GardenOfTheSan: {
         pos: { x: -33.825823, z: 18.924846 },
+        iconPath: `${path}assets/textures/`
     },
     Bathrooms: {
         pos: { x: -33.825531, z: 18.924584 },
+        iconPath: `${path}assets/textures/`
     },
     SpaEntrance: {
         pos: { x: -33.825549, z: 18.924189 },
+        iconPath: `${path}assets/textures/`
     },
     GreenhouseRestaurant: {
         pos: { x: -33.825649, z: 18.924088 },
+        iconPath: `${path}assets/textures/`
     },
     HealingGarden: {
         pos: { x: -33.825932, z: 18.924012 },
+        iconPath: `${path}assets/textures/`
     },
     CliviaHouse: {
         pos: { x: -33.826581, z: 18.925027 },
+        iconPath: `${path}assets/textures/`
     },
     SucculentHouse: {
         pos: { x: -33.826719, z: 18.924869 },
+        iconPath: `${path}assets/textures/`
     },
     SpiceHouse: {
         pos: { x: -33.826187, z: 18.924316 },
+        iconPath: `${path}assets/textures/`
     },
     WelwitschiaRockery: {
 
@@ -146,15 +177,16 @@ const Departments: Object = {
 
     },
     Babel: {
-        pos: { x: -33.823756, z: 18.926544 },
+        pos: { x: -33.823647, z: 18.926637 },
         iconPath: `${path}assets/textures/Restoraunt Icon.png`
     },
     GlasKas: {
         pos: { x: -33.825649, z: 18.924088 },
-        iconPath: `${path}assets/textures/Restoraunt Icon.png`
+        iconPath: `${path}assets/textures/GreenHouse_Icon.png`
     },
     InternHouse: {
         pos: { x: -33.827010, z: 18.913839 },
+        iconPath: `${path}assets/textures/GreenHouse_Icon.png`
     }
 }
 
@@ -289,7 +321,7 @@ export function translateCoordinates(lat: number, long: number) {
     let x;
     x = points.Px * -1; // Reflection over Y Axis
     x += 4050;          // Move Down
-    if (x > 0) {
+    if (x > 3000) {
         x *= 1.05
     }
 
@@ -306,6 +338,8 @@ export function translateCoordinates(lat: number, long: number) {
         if(z>0){
 
             z *= 1.3
+        }else{
+            z+=100;
         }
     }
 
@@ -467,15 +501,15 @@ class piLifeApp {
             point.rotate(new BABYLON.Vector3(0, 1, 0), 1.5);
             point.material = material0;
 
-            const leftFront = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 90, segments: 32 }, myScene);
-            const rightFront = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 30, segments: 32 }, myScene);
-            const leftBack = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 30, segments: 32 }, myScene);
-            const rightBack = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 30, segments: 32 }, myScene);
+            // const leftFront = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 90, segments: 32 }, myScene);
+            // const rightFront = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 30, segments: 32 }, myScene);
+            // const leftBack = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 30, segments: 32 }, myScene);
+            // const rightBack = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 30, segments: 32 }, myScene);
 
-            leftFront.position = new BABYLON.Vector3(0, 0, 0);
-            rightFront.position = new BABYLON.Vector3(4500, 0, 2287);
-            leftBack.position = new BABYLON.Vector3(-4500, 0, -2287);
-            rightBack.position = new BABYLON.Vector3(-4500, 0, 2287);
+            // leftFront.position = new BABYLON.Vector3(0, 0, 0);
+            // rightFront.position = new BABYLON.Vector3(4500, 0, 2287);
+            // leftBack.position = new BABYLON.Vector3(-4500, 0, -2287);
+            // rightBack.position = new BABYLON.Vector3(-4500, 0, 2287);
 
 
 
@@ -592,11 +626,12 @@ class piLifeApp {
                                 if (vals[depo].pos) {
 
                                     const { x, z } = vals[depo].pos;
+                                    const icon = vals[depo].iconPath; //Departments.Babel.iconPath
                                     //console.log(x + ' ' + z);
                                     if (x) {
 
                                         const pos = translateCoordinates(x, z);
-                                        createDepartmentPin(meshes[0], new BABYLON.Vector3(pos.x, 0, pos.z), Departments.Babel.iconPath, scene);
+                                        createDepartmentPin(meshes[0], new BABYLON.Vector3(pos.x, 0, pos.z), icon, scene);
 
                                     }
                                 }
@@ -655,11 +690,11 @@ class piLifeApp {
             let newPin = await pinMesh.clone("newPin");
             newPin.position = new BABYLON.Vector3(pinPosition.x, 0, pinPosition.z);
             newPin.scaling = new BABYLON.Vector3(100, 100, 100);
-            let BabelRestoraunt_Icon = BABYLON.MeshBuilder.CreatePlane('Icon', { height: 150, width: 100 }, scene);
+            let BabelRestoraunt_Icon = BABYLON.MeshBuilder.CreatePlane('Icon', { height: 150, width: 150 }, scene);
             let BabelIconMat = new BABYLON.PBRMaterial('IconMat', scene);
             // let BabelIconTex = 
             BabelIconMat.albedoTexture = await new BABYLON.Texture(texturePath, scene, true);
-            BabelIconMat.albedoColor = new BABYLON.Color3(0.5, 0.1, 1);
+            //BabelIconMat.albedoColor = new BABYLON.Color3(0.5, 0.1, 1);
             BabelIconMat.opacityTexture = await new BABYLON.Texture(texturePath, scene, true);
             BabelIconMat.transparencyMode = 2;
             BabelIconMat.metallic = 0;
@@ -668,7 +703,7 @@ class piLifeApp {
             BabelIconMat.needAlphaTesting();
 
             BabelRestoraunt_Icon.billboardMode = BABYLON.AbstractMesh.BILLBOARDMODE_ALL;
-            BabelRestoraunt_Icon.position = new BABYLON.Vector3(pinPosition.x, 300, pinPosition.z);
+            BabelRestoraunt_Icon.position = new BABYLON.Vector3(pinPosition.x, 320, pinPosition.z);
         }
 
 
