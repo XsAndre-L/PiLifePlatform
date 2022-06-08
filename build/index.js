@@ -1,8 +1,8 @@
 //import * as BABYLON from 'babylonjs';
 //import { Engine } from "babylonjs";
 //import { Scene } from 'babylonjs';
-//const path = 'https://xsandre-l.github.io/PiLifePlatform/';
-const path = '../';
+const path = 'https://xsandre-l.github.io/PiLifePlatform/';
+//const path = '../';
 const Departments = {
     Info: {
         pos: { x: -33.822943, z: 18.926317 },
