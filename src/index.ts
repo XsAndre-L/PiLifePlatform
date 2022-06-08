@@ -154,7 +154,7 @@ const Departments: Object = {
         iconPath: `${path}assets/textures/Restoraunt Icon.png`
     },
     InternHouse: {
-        pos: {x: -33.827010, z: 18.913839},
+        pos: { x: -33.827010, z: 18.913839 },
     }
 }
 
@@ -185,55 +185,55 @@ const Departments: Object = {
 //     ny: -2287
 // }
 
-const LB = {
-    x: -33.840022,
-    y: 18.936838,
-    nx: 3688,
-    ny: 51928
-}
-const RB = {
-    x: -33.840022,
-    y: 18.910960,
-    nx: 56819,
-    ny: 9297
-}
-const RF = {
-    x: -33.817955,
-    y: 18.910960,
-    nx: 14977,
-    ny: -46506
-}
-const LF = {
-    x: -33.817955,
-    y: 18.936838,
-    nx: -41392,
-    ny: -1278
-}
-
 // const LB = {
 //     x: -33.840022,
 //     y: 18.936838,
-//     nx: 5352,
-//     ny: 46094
+//     nx: 3688,
+//     ny: 51928
 // }
 // const RB = {
 //     x: -33.840022,
 //     y: 18.910960,
-//     nx: 50774,
-//     ny: 9717
+//     nx: 56819,
+//     ny: 9297
 // }
 // const RF = {
 //     x: -33.817955,
 //     y: 18.910960,
-//     nx: 14222,
-//     ny: -35789
+//     nx: 14977,
+//     ny: -46506
 // }
 // const LF = {
 //     x: -33.817955,
 //     y: 18.936838,
-//     nx: -311369,
-//     ny: 5393
+//     nx: -41392,
+//     ny: -1278
 // }
+
+const LB = {
+    x: -33.840022,
+    y: 18.936838,
+    nx: 5352,
+    ny: 46094
+}
+const RB = {
+    x: -33.840022,
+    y: 18.910960,
+    nx: 50774,
+    ny: 9717
+}
+const RF = {
+    x: -33.817955,
+    y: 18.910960,
+    nx: 14222,
+    ny: -35789
+}
+const LF = {
+    x: -33.817955,
+    y: 18.936838,
+    nx: -311369,
+    ny: 5393
+}
 
 // RB -33.82
 
@@ -283,8 +283,34 @@ export function translateCoordinates(lat: number, long: number) {
 
 
     // return { x: ((points.Px *-1) + 2100)/1.1, z: (((points.Py*-1) +3200) /1.1)}
-    return { x: (((points.Px *-1) +2100)/1.1) , z: points.Px > 0 ? (((points.Py*-1) +3200)/1.1) : (((points.Py*-1) +3500)/1.1)}
-    //return { x: (points.Px *-1) +4000, z: points.Px > -2000? (points.Py * -1) +4400 : (points.Py * -1) +5800};
+    //return { x: (((points.Px *-1) +2100)/1.1) , z: points.Px > 0 ? (((points.Py*-1) +3200)/1.1) : (((points.Py*-1) +3500)/1.1)}
+    // return { x: (points.Px *-1) +4000, z: points.Px > -2000? (points.Py * -1) +4400 : (points.Py * -1) +5800};
+
+    let x;
+    x = points.Px * -1; // Reflection over Y Axis
+    x += 4050;          // Move Down
+    if (x > 0) {
+        x *= 1.05
+    }
+
+    let z;
+    z = points.Py * -1;
+
+    
+
+    if(x < 0){
+        z += 4400;
+        //z *= 1.2;
+    }else{
+        z += 4550;
+        if(z>0){
+
+            z *= 1.3
+        }
+    }
+
+    return {x: x, z: z}
+    //return { x: points.Px > 2000 ? (points.Px * -1) + 4000 : (points.Px * -1) + 4000, z: points.Px < 0 ? (points.Py * -1) + 4550 : points.Px > 2000 ? (points.Py * -1) + 4400 : (points.Py * -1) + 4400 }
 }
 
 
@@ -441,12 +467,12 @@ class piLifeApp {
             point.rotate(new BABYLON.Vector3(0, 1, 0), 1.5);
             point.material = material0;
 
-            const leftFront = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 30, segments: 32 }, myScene);
+            const leftFront = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 90, segments: 32 }, myScene);
             const rightFront = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 30, segments: 32 }, myScene);
             const leftBack = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 30, segments: 32 }, myScene);
             const rightBack = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 30, segments: 32 }, myScene);
 
-            leftFront.position = new BABYLON.Vector3(4500, 0, -2287);
+            leftFront.position = new BABYLON.Vector3(0, 0, 0);
             rightFront.position = new BABYLON.Vector3(4500, 0, 2287);
             leftBack.position = new BABYLON.Vector3(-4500, 0, -2287);
             rightBack.position = new BABYLON.Vector3(-4500, 0, 2287);
