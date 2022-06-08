@@ -152,6 +152,9 @@ const Departments: Object = {
     GlasKas: {
         pos: { x: -33.825649, z: 18.924088 },
         iconPath: `${path}assets/textures/Restoraunt Icon.png`
+    },
+    InternHouse: {
+        pos: {x: -33.827010, z: 18.913839},
     }
 }
 
@@ -207,6 +210,31 @@ const LF = {
     ny: -1278
 }
 
+// const LB = {
+//     x: -33.840022,
+//     y: 18.936838,
+//     nx: 5352,
+//     ny: 46094
+// }
+// const RB = {
+//     x: -33.840022,
+//     y: 18.910960,
+//     nx: 50774,
+//     ny: 9717
+// }
+// const RF = {
+//     x: -33.817955,
+//     y: 18.910960,
+//     nx: 14222,
+//     ny: -35789
+// }
+// const LF = {
+//     x: -33.817955,
+//     y: 18.936838,
+//     nx: -311369,
+//     ny: 5393
+// }
+
 // RB -33.82
 
 
@@ -256,6 +284,7 @@ export function translateCoordinates(lat: number, long: number) {
 
     // return { x: ((points.Px *-1) + 2100)/1.1, z: (((points.Py*-1) +3200) /1.1)}
     return { x: (((points.Px *-1) +2100)/1.1) , z: points.Px > 0 ? (((points.Py*-1) +3200)/1.1) : (((points.Py*-1) +3500)/1.1)}
+    //return { x: (points.Px *-1) +4000, z: points.Px > -2000? (points.Py * -1) +4400 : (points.Py * -1) +5800};
 }
 
 
@@ -377,10 +406,10 @@ class piLifeApp {
 
             const webGPUSupported = await BABYLON.WebGPUEngine.IsSupportedAsync;
             if (false) {
-                const engine = new BABYLON.WebGPUEngine(canvas, {antialiasing: true});
+                const engine = new BABYLON.WebGPUEngine(canvas, { antialiasing: true });
                 await engine.initAsync();
                 return engine;
-            }else{
+            } else {
                 console.log("WebGPU Not Supported. Defaulted To WebGL");
                 return new BABYLON.Engine(canvas, true);
             }
@@ -391,7 +420,7 @@ class piLifeApp {
             // Setup the scene
             //scene = new BABYLON.Scene(engine);
             var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
-            
+
             return scene;
         };
 
@@ -401,7 +430,7 @@ class piLifeApp {
         var Meshes: BABYLON.Mesh[] = [mesh1, DepartmentPin];
         let P_meshName = ["Babylonstoren 3D Map.glb", "Department Pin.glb"]
 
-        
+
 
         var createScene = function (myScene: BABYLON.Scene, Canvas: any) {
 
@@ -429,7 +458,7 @@ class piLifeApp {
 
 
             // followCamera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5000, -10), myScene);
-            
+
             followCamera = new BABYLON.FollowCamera("followcam", new BABYLON.Vector3(8000, 4000, 0), myScene);
             followCamera.lockedTarget = point;
             followCamera.heightOffset = 5000;
@@ -560,7 +589,7 @@ class piLifeApp {
             );
             pipeline.samples = 4;
             pipeline.fxaaEnabled = true;
-         
+
             pipeline.grainEnabled = true;
             pipeline.grain.intensity = 2;
 
@@ -721,9 +750,9 @@ function GetGeoLocation() {
                     const curr = translateCoordinates(lat, long);
                     CURR_X = curr.x;
                     CURR_Y = curr.z;//4064.9325016956275
-                    if (text) { text.innerHTML = `LOC : ${lat}, ${long}   | <span class="in">YOU ARE IN THE GARDEN</span>`; }
+                    if (text) { text.innerHTML = `LOC : ${lat}, ${long}   | <span class="in">YOU ARE @ BABYLONSTOREN</span>`; }
                 } else {
-                    if (text) { text.innerHTML = `LOC : ${lat}, ${long}   | <span class="out">NOT IN THE GARDEN !</span>`; }
+                    if (text) { text.innerHTML = `LOC : ${lat}, ${long}   | <span class="out">NOT CLOSE TO BABYLONSTOREN!</span>`; }
 
                 }
 

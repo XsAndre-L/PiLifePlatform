@@ -119,6 +119,9 @@ const Departments = {
     GlasKas: {
         pos: { x: -33.825649, z: 18.924088 },
         iconPath: `${path}assets/textures/Restoraunt Icon.png`
+    },
+    InternHouse: {
+        pos: { x: -33.827010, z: 18.913839 },
     }
 };
 // const LB = {
@@ -169,6 +172,30 @@ const LF = {
     nx: -41392,
     ny: -1278
 };
+// const LB = {
+//     x: -33.840022,
+//     y: 18.936838,
+//     nx: 5352,
+//     ny: 46094
+// }
+// const RB = {
+//     x: -33.840022,
+//     y: 18.910960,
+//     nx: 50774,
+//     ny: 9717
+// }
+// const RF = {
+//     x: -33.817955,
+//     y: 18.910960,
+//     nx: 14222,
+//     ny: -35789
+// }
+// const LF = {
+//     x: -33.817955,
+//     y: 18.936838,
+//     nx: -311369,
+//     ny: 5393
+// }
 // RB -33.82
 let CURR_X;
 let CURR_Y;
@@ -197,6 +224,7 @@ export function translateCoordinates(lat, long) {
     //+ (1 * (tryDist1 < tryDist2 ? tryDist1 / 2.9 : tryDist2 / 2.9))
     // return { x: ((points.Px *-1) + 2100)/1.1, z: (((points.Py*-1) +3200) /1.1)}
     return { x: (((points.Px * -1) + 2100) / 1.1), z: points.Px > 0 ? (((points.Py * -1) + 3200) / 1.1) : (((points.Py * -1) + 3500) / 1.1) };
+    //return { x: (points.Px *-1) +4000, z: points.Px > -2000? (points.Py * -1) +4400 : (points.Py * -1) +5800};
 }
 /**
  * Find the coordinates for the third point of a triangle.
@@ -538,12 +566,12 @@ function GetGeoLocation() {
                     CURR_X = curr.x;
                     CURR_Y = curr.z; //4064.9325016956275
                     if (text) {
-                        text.innerHTML = `LOC : ${lat}, ${long}   | <span class="in">YOU ARE IN THE GARDEN</span>`;
+                        text.innerHTML = `LOC : ${lat}, ${long}   | <span class="in">YOU ARE @ BABYLONSTOREN</span>`;
                     }
                 }
                 else {
                     if (text) {
-                        text.innerHTML = `LOC : ${lat}, ${long}   | <span class="out">NOT IN THE GARDEN !</span>`;
+                        text.innerHTML = `LOC : ${lat}, ${long}   | <span class="out">NOT CLOSE TO BABYLONSTOREN!</span>`;
                     }
                 }
                 //-33.3692478,18.3920107
