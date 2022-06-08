@@ -181,7 +181,7 @@ const Departments: Object = {
         iconPath: `${path}assets/textures/Restoraunt Icon.png`
     },
     GlasKas: {
-        pos: { x: -33.825649, z: 18.924088 },
+        pos: { x: -33.825695, z: 18.924183 },
         iconPath: `${path}assets/textures/GreenHouse_Icon.png`
     },
     InternHouse: {
@@ -458,7 +458,7 @@ class piLifeApp {
         let followCamera: BABYLON.FollowCamera;
         let flyCamera: BABYLON.FlyCamera;
 
-        let deviceSourceManager = new BABYLON.DeviceSourceManager(scene.getEngine());
+        // let deviceSourceManager = new BABYLON.DeviceSourceManager(scene.getEngine());
 
         var createDefaultEngine = async () => {
             // 
@@ -673,9 +673,10 @@ class piLifeApp {
                 if (getDistance(CURR_X, CURR_Y, point.position.x, point.position.z) > 10) {
                     //console.log(getDistance(CURR_X,CURR_Y,point.position.x,point.position.z))
                     point.translate(new BABYLON.Vector3(CURR_X - point.position.x, 0, CURR_Y - point.position.z).normalize(), (getDistance(CURR_X, CURR_Y, point.position.x, point.position.z) * 0.05), BABYLON.Space.WORLD);
-
+                    const interH_pos = translateCoordinates(Departments.InternHouse.pos.x, Departments.InternHouse.pos.z);
                     lines.dispose();
-                    lines = drawDashedLine([new BABYLON.Vector3(LB.nx, 1, LB.ny), new BABYLON.Vector3(RB.nx, 1, RB.ny), new BABYLON.Vector3(point.position.x, 1, point.position.z), new BABYLON.Vector3(LB.nx, 1, LB.ny)], scene);
+                    //lines = drawDashedLine([new BABYLON.Vector3(LB.nx, 1, LB.ny), new BABYLON.Vector3(RB.nx, 1, RB.ny), new BABYLON.Vector3(point.position.x, 1, point.position.z), new BABYLON.Vector3(LB.nx, 1, LB.ny)], scene);
+                    lines = drawDashedLine([new BABYLON.Vector3(interH_pos.x, 1 , interH_pos.z), new BABYLON.Vector3(point.position.x, 1, point.position.z)], scene)
                 }
 
             }
