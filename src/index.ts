@@ -823,7 +823,7 @@ function GetGeoLocation() {
                 //-33.825517, 18.923640
             }, errLocation, {
                 enableHighAccuracy: true,
-                maximumAge: 0,
+                maximumAge: 1000,
                 timeout: 1000
 
             });
