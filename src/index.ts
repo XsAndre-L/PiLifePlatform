@@ -528,8 +528,8 @@ class piLifeApp {
             followCamera.minZ = 100;
             followCamera.lowerHeightOffsetLimit = 1000;
             followCamera.upperHeightOffsetLimit = 8000;
-            followCamera.cameraAcceleration = 0.1;
-            followCamera.maxCameraSpeed = 50;
+            followCamera.cameraAcceleration = 0.001;
+            followCamera.maxCameraSpeed = 40;
             followCamera.speed = 0;
             followCamera.upperRotationOffsetLimit = 0;
             followCamera.lowerRotationOffsetLimit = 0;
@@ -824,7 +824,7 @@ function GetGeoLocation() {
             }, errLocation, {
                 enableHighAccuracy: true,
                 maximumAge: 0,
-                timeout: 15000
+                timeout: 1000
 
             });
         }
